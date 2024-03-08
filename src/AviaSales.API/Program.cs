@@ -1,15 +1,12 @@
+using AviaSales.API;
 using AviaSales.Shared.Extensions;
-using AviaSales.Shared.Utilities;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Host.UseSerilog(SerilogHelper.Configure);
+builder.Services.AddInfrastructure();
+builder.Services.AddExtensions(builder.Host);
+builder.Services.AddAuth(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,9 +18,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseGlobalExceptionHandler();
 app.UseCorrelationId();
+
 app.MapControllers();
 
 app.Run();
