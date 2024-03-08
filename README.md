@@ -7,7 +7,7 @@
 
 - Язык программирования: C# (.NET 6.0 и выше)
 - Принципы: RESTful API
-- Библиотеки: [ASP.NET](http://asp.net/) Core,
+- Библиотеки: ASP.NET.Core,Serilog,FluentValidation,Microsoft.EntityFramework.Core
 
 ## Установка и настройка
 
