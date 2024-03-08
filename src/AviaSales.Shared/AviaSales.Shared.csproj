@@ -29,8 +29,6 @@
       <PackageReference Include="Serilog.Sinks.TelegramBot" Version="1.1.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Managers\" />
-    </ItemGroup>
+
 
 </Project>

@@ -23,6 +23,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseGlobalExceptionHandler();
+app.UseCorrelationId();
 app.MapControllers();
 
 app.Run();
