@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AviaSales.Infrastructure.Dtos;
 using AviaSales.Infrastructure.Managers;
 using AviaSales.Infrastructure.Persistance;
 using AviaSales.Infrastructure.Validations;
@@ -65,13 +66,16 @@ public static class ServiceCollectionExtension
         // Adding serilog
         hostBuilder.UseSerilog(SerilogHelper.Configure);
         
-        // Adding swagger
+        // Adding swagger and doc generating options.
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(s =>
         {
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            s.IncludeXmlComments(xmlPath);
+            s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+            
+            s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(AirlineDto).Assembly.GetName().Name}.xml"));
+            
             s.AddTokenAuth();
         });
     }

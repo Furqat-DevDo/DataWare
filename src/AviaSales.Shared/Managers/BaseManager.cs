@@ -60,7 +60,7 @@ public abstract class BaseManager<TContext, TEntity, TKey, TDto> : IManager
     /// <param name="pager">Pager configuration for pagination.</param>
     /// <param name="predicate">The predicate to filter the entities.</param>
     /// <returns>A list of models.</returns>
-    public virtual async ValueTask<List<TDto>> GetList(Pager pager, Expression<Func<TEntity, bool>>? predicate)
+    public virtual async ValueTask<List<TDto>> GetList(Pager pager, Expression<Func<TEntity, bool>>? predicate = null)
     {
         var query = Set().AsNoTracking();
 

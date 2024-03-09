@@ -6,6 +6,17 @@
 public record Pager
 {
     /// <summary>
+    /// Constructor with default value logic.
+    /// </summary>
+    /// <param name="page">page number.</param>
+    /// <param name="perPage">elements count per page.</param>
+    public Pager(ushort page, byte perPage)
+    {
+        Page = (ushort)(page > 0 ? page : 1);
+        PerPage =(byte) (perPage > 0 ? perPage : 10);
+    }
+
+    /// <summary>
     /// Gets or sets the current page number. Defaults to 1.
     /// </summary>
     public ushort Page { get; set; } = 1;
