@@ -1,4 +1,3 @@
-using AviaSales.API;
 using AviaSales.API.Extensions;
 using AviaSales.Shared.Extensions;
 
@@ -6,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddValidators();
 builder.Services.AddExtensions(builder.Host);
 builder.Services.AddAuth(builder.Configuration);
 
