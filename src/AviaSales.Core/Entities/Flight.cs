@@ -5,12 +5,10 @@ namespace AviaSales.Core.Entities;
 /// <summary>
 /// Represents a flight entity with information about its airline, departure and arrival airports, schedule, and pricing details.
 /// </summary>
-public class Flight : Entity<long>, IAuditable
+public class Flight : Entity<long>
 {
     // Private collection for storing prices associated with the flight.
     private readonly HashSet<Price> _prices = new();
-    // Private collection for storing bookings associated with the flight.
-    private readonly HashSet<Booking> _bookings = new();
 
     // Private parameterless constructor to prevent direct instantiation.
     private Flight() { }
@@ -63,8 +61,8 @@ public class Flight : Entity<long>, IAuditable
     /// <summary>
     /// Gets a read-only list of bookings associated with the flight.
     /// </summary>
-    public IReadOnlyList<Booking> Bookings => _bookings.ToList();
-    
+    public IReadOnlyList<Booking> Bookings { get; set; }
+
     /// <summary>
     /// Foreign key for passenger.
     /// </summary>
@@ -109,14 +107,5 @@ public class Flight : Entity<long>, IAuditable
     public void AddPrice(Price price)
     {
         _prices.Add(price);
-    }
-    
-    /// <summary>
-    /// Adds a booking to the flight's collection of bookings.
-    /// </summary>
-    /// <param name="booking">The price to be added.</param>
-    public void AddBooking(Booking booking)
-    {
-        _bookings.Add(booking);
     }
 }
