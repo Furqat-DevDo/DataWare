@@ -12,8 +12,8 @@ namespace AviaSales.Shared.Managers;
 /// <typeparam name="TContext">The type of the Entity Framework context.</typeparam>
 /// <typeparam name="TEntity">The type of the entity being managed.</typeparam>
 /// <typeparam name="TKey">The type of the unique identifier for the entity.</typeparam>
-/// <typeparam name="TModel">The type of the model associated with the entity.</typeparam>
-public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
+/// <typeparam name="TDto">The type of the model associated with the entity.</typeparam>
+public abstract class BaseManager<TContext, TEntity, TKey, TDto> : IManager
     where TEntity : class, IEntity<TKey>
     where TKey : IEquatable<TKey>
     where TContext : DbContext
@@ -35,14 +35,14 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
     /// <summary>
     /// Gets or sets the expression to convert the entity to its associated model.
     /// </summary>
-    protected abstract Expression<Func<TEntity, TModel>> EntityToModel { get; }
+    protected abstract Expression<Func<TEntity, TDto>> EntityToDto { get; }
 
     /// <summary>
     /// Retrieves a single model based on the specified predicate.
     /// </summary>
     /// <param name="predicate">The predicate to filter the entities.</param>
     /// <returns>A single model or null if not found.</returns>
-    public virtual async ValueTask<TModel?> Get(Expression<Func<TEntity, bool>>? predicate)
+    public virtual async ValueTask<TDto?> Get(Expression<Func<TEntity, bool>>? predicate)
     {
         var query = Set().AsNoTracking();
 
@@ -51,7 +51,7 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
             query = query.Where(predicate);
         }
 
-        return await query.Select(EntityToModel).FirstOrDefaultAsync();
+        return await query.Select(EntityToDto).FirstOrDefaultAsync();
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
     /// <param name="pager">Pager configuration for pagination.</param>
     /// <param name="predicate">The predicate to filter the entities.</param>
     /// <returns>A list of models.</returns>
-    public virtual async ValueTask<List<TModel>> GetList(Pager pager, Expression<Func<TEntity, bool>>? predicate)
+    public virtual async ValueTask<List<TDto>> GetList(Pager pager, Expression<Func<TEntity, bool>>? predicate)
     {
         var query = Set().AsNoTracking();
 
@@ -71,7 +71,7 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
 
         query = query.Paged(pager);
 
-        return await query.Select(EntityToModel).ToListAsync();
+        return await query.Select(EntityToDto).ToListAsync();
     }
 
     /// <summary>
@@ -79,20 +79,20 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
     /// </summary>
     /// <param name="predicate">The predicate to filter the entities.</param>
     /// <returns>A list of models.</returns>
-    public virtual async ValueTask<List<TModel>> GetList(Expression<Func<TEntity, bool>> predicate)
+    public virtual async ValueTask<List<TDto>> GetList(Expression<Func<TEntity, bool>> predicate)
     {
         var query = Set().AsNoTracking().Where(predicate);
-        return await query.Select(EntityToModel).ToListAsync();
+        return await query.Select(EntityToDto).ToListAsync();
     }
 
     /// <summary>
     /// Retrieves a list of all models.
     /// </summary>
     /// <returns>A list of all models.</returns>
-    public virtual async ValueTask<List<TModel>> GetList()
+    public virtual async ValueTask<List<TDto>> GetList()
     {
         var query = Set().AsNoTracking();
-        return await query.Select(EntityToModel).ToListAsync();
+        return await query.Select(EntityToDto).ToListAsync();
     }
 
     /// <summary>
@@ -100,12 +100,12 @@ public abstract class BaseManager<TContext, TEntity, TKey, TModel> : IManager
     /// </summary>
     /// <param name="id">The unique identifier of the entity.</param>
     /// <returns>A model or null if not found.</returns>
-    public virtual async ValueTask<TModel?> GetByIdAsync(TKey id)
+    public virtual async ValueTask<TDto?> GetByIdAsync(TKey id)
     {
         return await Set()
             .AsNoTracking()
             .Where(entity => entity.Id.Equals(id))
-            .Select(EntityToModel)
+            .Select(EntityToDto)
             .FirstOrDefaultAsync();
     }
 
