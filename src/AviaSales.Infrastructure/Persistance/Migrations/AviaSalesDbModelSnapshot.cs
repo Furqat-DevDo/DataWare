@@ -30,13 +30,18 @@ namespace AviaSales.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IataCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
+
+                    b.Property<string>("IcaoCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -51,10 +56,13 @@ namespace AviaSales.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code")
+                    b.HasIndex("IataCode")
                         .IsUnique();
 
-                    b.ToTable("Airlines", (string)null);
+                    b.HasIndex("IcaoCode")
+                        .IsUnique();
+
+                    b.ToTable("Airlines");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Airport", b =>
@@ -103,7 +111,7 @@ namespace AviaSales.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Airports", (string)null);
+                    b.ToTable("Airports");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Booking", b =>
@@ -146,7 +154,7 @@ namespace AviaSales.Infrastructure.Migrations
                     b.HasIndex("FlightId", "PassengerId")
                         .IsUnique();
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Flight", b =>
@@ -192,7 +200,7 @@ namespace AviaSales.Infrastructure.Migrations
 
                     b.HasIndex("DepartureAirportId");
 
-                    b.ToTable("Flights", (string)null);
+                    b.ToTable("Flights");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Passenger", b =>
@@ -241,12 +249,12 @@ namespace AviaSales.Infrastructure.Migrations
                     b.HasIndex("FlightId")
                         .IsUnique();
 
-                    b.ToTable("Passengers", (string)null);
+                    b.ToTable("Passengers");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Airport", b =>
                 {
-                    b.OwnsOne("AviaSales.Core.Entities.Airport.Details#AviaSales.Core.Entities.AirportDetails", "Details", b1 =>
+                    b.OwnsOne("AviaSales.Core.Entities.AirportDetails", "Details", b1 =>
                         {
                             b1.Property<long>("AirportId")
                                 .HasColumnType("bigint");
@@ -271,13 +279,13 @@ namespace AviaSales.Infrastructure.Migrations
 
                             b1.HasKey("AirportId");
 
-                            b1.ToTable("Airports", (string)null);
+                            b1.ToTable("Airports");
 
                             b1.WithOwner()
                                 .HasForeignKey("AirportId");
                         });
 
-                    b.OwnsOne("AviaSales.Core.Entities.Airport.Location#AviaSales.Core.Entities.Location", "Location", b1 =>
+                    b.OwnsOne("AviaSales.Core.Entities.Location", "Location", b1 =>
                         {
                             b1.Property<long>("AirportId")
                                 .HasColumnType("bigint");
@@ -296,7 +304,7 @@ namespace AviaSales.Infrastructure.Migrations
 
                             b1.HasKey("AirportId");
 
-                            b1.ToTable("Airports", (string)null);
+                            b1.ToTable("Airports");
 
                             b1.WithOwner()
                                 .HasForeignKey("AirportId");
@@ -348,7 +356,7 @@ namespace AviaSales.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("AviaSales.Core.Entities.Flight.Prices#AviaSales.Core.Entities.Price", "Prices", b1 =>
+                    b.OwnsMany("AviaSales.Core.Entities.Price", "Prices", b1 =>
                         {
                             b1.Property<long>("FlightId")
                                 .HasColumnType("bigint");
@@ -370,7 +378,7 @@ namespace AviaSales.Infrastructure.Migrations
 
                             b1.HasKey("FlightId", "Id");
 
-                            b1.ToTable("Price", (string)null);
+                            b1.ToTable("Price");
 
                             b1.WithOwner()
                                 .HasForeignKey("FlightId");

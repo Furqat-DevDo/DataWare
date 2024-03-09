@@ -3,20 +3,22 @@
 namespace AviaSales.Core.Entities;
 
 /// <summary>
-/// Represents an airline entity with information about its code, name, and associated flights.
+/// Represents an airline entity with information about its IATA and ICAO codes, as well as its name.
 /// </summary>
 public class Airline : Entity<long>
 {
-    // Private collection for storing flights associated with the airline.
-    private readonly HashSet<Flight> _flights = new();
-
     // Private parameterless constructor to prevent direct instantiation.
     private Airline() { }
 
     /// <summary>
-    /// Gets or sets the code of the airline.
+    /// Gets or sets the IATA code of the airline.
     /// </summary>
-    public string Code { get; private set; }
+    public string IataCode { get; private set; }
+    
+    /// <summary>
+    /// Gets or sets the ICAO code of the airline.
+    /// </summary>
+    public string IcaoCode { get; private set; }
 
     /// <summary>
     /// Gets or sets the name of the airline.
@@ -26,32 +28,25 @@ public class Airline : Entity<long>
     /// <summary>
     /// Gets a read-only collection of flights associated with the airline.
     /// </summary>
-    public IReadOnlyCollection<Flight> Flights => _flights.ToList();
+    public IReadOnlyCollection<Flight> Flights { get; set; }
 
     /// <summary>
-    /// Creates a new airline entity with the specified code and name.
+    /// Creates a new airline entity with the specified IATA and ICAO codes, as well as the name.
     /// </summary>
-    /// <param name="code">The code of the airline.</param>
+    /// <param name="iataCode">The IATA code of the airline.</param>
+    /// <param name="icaoCode">The ICAO code of the airline.</param>
     /// <param name="name">The name of the airline.</param>
     /// <returns>A new instance of the <see cref="Airline"/> class.</returns>
-    public static Airline Create(string code, string name)
+    public static Airline Create(string iataCode, string icaoCode, string name)
     {
         var airline = new Airline
         {
-            Code = code,
+            IataCode = iataCode,
+            IcaoCode = icaoCode,
             Name = name,
             CreatedAt = DateTime.UtcNow
         };
 
         return airline;
-    }
-
-    /// <summary>
-    /// Adds a flight to the airline's collection of flights.
-    /// </summary>
-    /// <param name="flight">The flight to be added.</param>
-    public void AddFlight(Flight flight)
-    {
-        _flights.Add(flight);
     }
 }

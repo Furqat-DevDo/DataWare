@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AviaSales.Infrastructure.Migrations
 {
     [DbContext(typeof(AviaSalesDb))]
-    [Migration("20240309114055_InitialDb")]
+    [Migration("20240309140651_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,13 +32,18 @@ namespace AviaSales.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IataCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
+
+                    b.Property<string>("IcaoCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -53,7 +58,10 @@ namespace AviaSales.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code")
+                    b.HasIndex("IataCode")
+                        .IsUnique();
+
+                    b.HasIndex("IcaoCode")
                         .IsUnique();
 
                     b.ToTable("Airlines");

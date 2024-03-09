@@ -7,9 +7,6 @@ namespace AviaSales.Core.Entities;
 /// </summary>
 public class Passenger : Entity<long>
 {
-    // Bookings baking field to controll all bookings.
-    private readonly HashSet<Booking> _bookings = new();
-    
     // Private parameterless constructor to prevent direct instantiation.
     private Passenger() { }
 
@@ -42,11 +39,11 @@ public class Passenger : Entity<long>
     /// Gets or sets the full name of the passenger.
     /// </summary>
     public string Fullname { get; private set; }
-    
+
     /// <summary>
-    /// used for acsess real bookings.
+    /// used for acsess pessanger bookings.
     /// </summary>
-    public IReadOnlyList<Booking> Bookings => _bookings.ToList();
+    public IReadOnlyList<Booking> Bookings { get; set; }
     
     /// <summary>
     /// Creates a new passenger entity with the specified details.
@@ -69,14 +66,5 @@ public class Passenger : Entity<long>
         };
 
         return passenger;
-    }
-    
-    /// <summary>
-    /// Will add new booking to booking list.
-    /// </summary>
-    /// <param name="booking">new booking.</param>
-    public void AddBooking(Booking booking)
-    {
-        _bookings.Add(booking);
     }
 }

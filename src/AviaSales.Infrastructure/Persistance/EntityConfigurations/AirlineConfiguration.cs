@@ -21,11 +21,16 @@ public class AirlineConfiguration : IEntityTypeConfiguration<Airline>
             .HasForeignKey(f => f.AirlineId);
 
         // Configures a unique index on the Code property.
-        builder.HasIndex(a => a.Code)
+        builder.HasIndex(a => a.IataCode)
+            .IsUnique();
+        
+        // Configures a unique index on the Code property.
+        builder.HasIndex(a => a.IcaoCode)
             .IsUnique();
         
         // Fixing space issue in database.
         builder.Property(a => a.Name).HasMaxLength(255);
-        builder.Property(a => a.Code).HasMaxLength(20);
+        builder.Property(a => a.IcaoCode).HasMaxLength(5);
+        builder.Property(a => a.IataCode).HasMaxLength(5);
     }
 }

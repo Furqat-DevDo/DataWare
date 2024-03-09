@@ -16,7 +16,8 @@ namespace AviaSales.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Code = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    IataCode = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
+                    IcaoCode = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -174,9 +175,15 @@ namespace AviaSales.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airlines_Code",
+                name: "IX_Airlines_IataCode",
                 table: "Airlines",
-                column: "Code",
+                column: "IataCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Airlines_IcaoCode",
+                table: "Airlines",
+                column: "IcaoCode",
                 unique: true);
 
             migrationBuilder.CreateIndex(
