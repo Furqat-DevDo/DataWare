@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace AviaSales.Core.Entities;
 
@@ -11,15 +12,15 @@ public class AirportDetails
     /// <summary>
     /// Gets or sets the IATA code for the airport.
     /// </summary>
-    public required string IataCode { get; set; }
+    public string IataCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the ICAO code for the airport.
     /// </summary>
-    public required string IcaoCode { get; set; }
+    public string IcaoCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets a brief description or summary of the airport's facilities.
     /// </summary>
-    public required string Facilities { get; set; }
+    public string Facilities { get; set; } = string.Empty;
 }

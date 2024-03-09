@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AviaSales.Infrastructure.Migrations
 {
     [DbContext(typeof(AviaSalesDb))]
-    [Migration("20240309112929_InitialDb")]
+    [Migration("20240309114055_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,17 +255,20 @@ namespace AviaSales.Infrastructure.Migrations
 
                             b1.Property<string>("Facilities")
                                 .IsRequired()
-                                .HasColumnType("text")
+                                .HasMaxLength(400)
+                                .HasColumnType("character varying(400)")
                                 .HasColumnName("Facilities");
 
                             b1.Property<string>("IataCode")
                                 .IsRequired()
-                                .HasColumnType("text")
+                                .HasMaxLength(4)
+                                .HasColumnType("character varying(4)")
                                 .HasColumnName("IataCode");
 
                             b1.Property<string>("IcaoCode")
                                 .IsRequired()
-                                .HasColumnType("text")
+                                .HasMaxLength(6)
+                                .HasColumnType("character varying(6)")
                                 .HasColumnName("IcaoCode");
 
                             b1.HasKey("AirportId");

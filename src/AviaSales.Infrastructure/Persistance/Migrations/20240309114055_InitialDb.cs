@@ -43,9 +43,9 @@ namespace AviaSales.Infrastructure.Migrations
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longtitude = table.Column<double>(type: "double precision", nullable: false),
                     Elevation = table.Column<int>(type: "integer", nullable: false),
-                    IataCode = table.Column<string>(type: "text", nullable: false),
-                    IcaoCode = table.Column<string>(type: "text", nullable: false),
-                    Facilities = table.Column<string>(type: "text", nullable: false),
+                    IataCode = table.Column<string>(type: "character varying(4)", maxLength: 4, nullable: false),
+                    IcaoCode = table.Column<string>(type: "character varying(6)", maxLength: 6, nullable: false),
+                    Facilities = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

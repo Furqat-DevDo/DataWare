@@ -46,9 +46,17 @@ public class AirportConfiguration : IEntityTypeConfiguration<Airport>
         // Configuring owned types.
         builder.OwnsOne(a => a.Details, d =>
         {
-            d.Property(p => p.IataCode).HasColumnName("IataCode");
-            d.Property(p => p.IcaoCode).HasColumnName("IcaoCode");
-            d.Property(p => p.Facilities).HasColumnName("Facilities");
+            d.Property(p => p.IataCode)
+                .HasColumnName("IataCode")
+                .HasMaxLength(4);
+            
+            d.Property(p => p.IcaoCode)
+                .HasColumnName("IcaoCode")
+                .HasMaxLength(6);
+            
+            d.Property(p => p.Facilities)
+                .HasColumnName("Facilities")
+                .HasMaxLength(400);
         });
         
         // Configuring owned types.
