@@ -49,4 +49,17 @@ public class Airline : Entity<long>
 
         return airline;
     }
+    
+    /// <summary>
+    /// Updates the properties of the entity.
+    /// </summary>
+    /// <param name="iataCode">The new IATA code.</param>
+    /// <param name="icaoCode">The new ICAO code.</param>
+    /// <param name="name">The new name.</param>
+    public void Update(string iataCode, string icaoCode, string name)
+    {
+        IataCode = iataCode;
+        IcaoCode = icaoCode;
+        Name = name;
+    }
 }

@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AviaSales.Infrastructure.Validations;
 
-public class BookingValidator :AbstractValidator<CreateBookingDto>
+/// <summary>
+/// Create Booking Dto Validator.
+/// </summary>
+public class BookingValidator : AbstractValidator<CreateBookingDto>
 {
     public BookingValidator(AviaSalesDb db)
     {
@@ -29,5 +32,20 @@ public class BookingValidator :AbstractValidator<CreateBookingDto>
             .WithMessage("Passenger does not exit.");
         
         RuleFor(b => b.TotalPrice).GreaterThan(0);
+    }
+}
+
+/// <summary>
+/// Update Booking Dto Validator.
+/// </summary>
+public class UpdateBookingValidator : AbstractValidator<UpdateBookingDto>
+{
+    public UpdateBookingValidator()
+    {
+        ClassLevelCascadeMode = CascadeMode.Continue;
+        RuleLevelCascadeMode = CascadeMode.Stop;
+
+        RuleFor(b => b.TotalPrice).NotNull().GreaterThan(0);
+        RuleFor(b => b.Status).IsInEnum();
     }
 }

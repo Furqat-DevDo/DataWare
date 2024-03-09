@@ -67,7 +67,7 @@ public class AirportsController : ControllerBase
     public async Task<IActionResult> DeleteAsync([FromRoute]long id)
     {
         var result = await _manager.Delete(id);
-        return result is null ? NotFound() : Ok(result);
+        return result ? NotFound() : Ok();
     }
     
     /// <summary>
@@ -88,7 +88,7 @@ public class AirportsController : ControllerBase
     [ProducesResponseType(typeof(NotFoundObjectResult),404)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
-        var result = await _manager.GetByIdAsync(id);
+        var result = await _manager.GetById(id);
         return result is null ? NotFound() : Ok(result);
     }
 }

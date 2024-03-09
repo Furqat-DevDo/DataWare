@@ -11,25 +11,25 @@ namespace AviaSales.API.Controllers;
 [Route("api/[controller]")]
 public class BookingsController : ControllerBase
 {
-    private readonly IValidator<CreateBookingDto> _validator;
     private readonly BookingManager _manager;
     
-    public BookingsController(IValidator<CreateBookingDto> validator, BookingManager manager)
+    public BookingsController(BookingManager manager)
     {
-        _validator = validator;
         _manager = manager;
     }
-    
+
     /// <summary>
     /// Will create a new Booking.
     /// </summary>
     /// <param name="dto">Create Booking Dto.</param>
+    /// <param name="validator">Create Booking validator</param>
     [HttpPost]
     [ProducesResponseType(typeof(BookingDto),200)]
     [ProducesResponseType(typeof(ProblemDetails),400)]
-    public async Task<IActionResult> CreateAsync(CreateBookingDto dto)
+    public async Task<IActionResult> CreateAsync(CreateBookingDto dto,
+        [FromServices] IValidator<CreateBookingDto> validator)
     {
-        var validationResult = await _validator.ValidateAsync(dto);
+        var validationResult = await validator.ValidateAsync(dto);
 
         if (!validationResult.IsValid)
             return BadRequest(validationResult.ToProblemDetails());
@@ -43,12 +43,14 @@ public class BookingsController : ControllerBase
     /// </summary>
     /// <param name="id">Booking's id.</param>
     /// <param name="dto">Update Booking Dto.</param>
+    /// <param name="validator">Update Booking validator.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BookingDto),200)]
     [ProducesResponseType(typeof(ProblemDetails),400)]
-    public async Task<IActionResult> UpdateAsync([FromRoute]long id, CreateBookingDto dto)
+    public async Task<IActionResult> UpdateAsync([FromRoute]long id, UpdateBookingDto dto,
+        [FromServices]IValidator<UpdateBookingDto> validator)
     {
-        var validationResult = await _validator.ValidateAsync(dto);
+        var validationResult = await validator.ValidateAsync(dto);
 
         if (!validationResult.IsValid)
             return BadRequest(validationResult.ToProblemDetails());
@@ -87,7 +89,7 @@ public class BookingsController : ControllerBase
     [ProducesResponseType(typeof(NotFoundObjectResult),404)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
-        var result = await _manager.GetByIdAsync(id);
+        var result = await _manager.GetById(id);
         return result is null ? NotFound() : Ok(result);
     }
 }

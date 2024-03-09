@@ -64,4 +64,15 @@ public class Booking : Entity<long>
 
         return booking;
     }
+    
+    /// <summary>
+    /// Updates booking price and status.
+    /// </summary>
+    /// <param name="totalPrice">Booking price.</param>
+    /// <param name="status"> Status.</param>
+    public void Update(decimal totalPrice, EBookingStatus status)
+    {
+        TotalPrice = totalPrice;
+        Status = status;
+    }
 }

@@ -87,7 +87,7 @@ public class FlightsController : ControllerBase
     [ProducesResponseType(typeof(NotFoundObjectResult),404)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
-        var result = await _manager.GetByIdAsync(id);
+        var result = await _manager.GetById(id);
         return result is null ? NotFound() : Ok(result);
     }
 }

@@ -14,13 +14,13 @@ public class AirlineValidator : AbstractValidator<CreateAirlineDto>
             .NotEmpty()
             .NotNull();
         
-        RuleFor(a => a.iataCode)
+        RuleFor(a => a.IataCode)
             .NotEmpty()
             .NotNull()
             .MaximumLength(2)
             .MinimumLength(2);
         
-        RuleFor(a => a.icaoCode)
+        RuleFor(a => a.IcaoCode)
             .NotEmpty()
             .NotNull()
             .MaximumLength(3)

@@ -3,6 +3,7 @@ using AviaSales.Core.Entities;
 using AviaSales.Infrastructure.Dtos;
 using AviaSales.Infrastructure.Persistance;
 using AviaSales.Shared.Managers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AviaSales.Infrastructure.Managers;
@@ -23,19 +24,50 @@ public class AirlineManager : BaseManager<AviaSalesDb,Airline,long,AirlineDto>
             a.IataCode,
             a.IcaoCode,
             a.Name);
-
-    public async Task<object> CreateAirline(CreateAirlineDto dto)
+    
+    /// <summary>
+    /// Will create a new airline.
+    /// </summary>
+    /// <param name="dto">create airline dto.</param>
+    public async Task<AirlineDto> CreateAirline(CreateAirlineDto dto)
     {
-        throw new NotImplementedException();
+        var airline = Airline.Create(dto.IataCode,dto.IcaoCode,dto.Name);
+        
+        await _db.Airlines.AddAsync(airline);
+        
+        return EntityToDto.Compile().Invoke(airline);
     }
 
-    public async Task<object?> UpdateAirline(long id, CreateAirlineDto dto)
+    /// <summary>
+    /// Will update airline informations if it exist else it will return null.
+    /// </summary>
+    /// <param name="id">Airline's id.</param>
+    /// <param name="dto">Update Airline Dto.</param>
+    public async Task<AirlineDto?> UpdateAirline(long id, CreateAirlineDto dto)
     {
-        throw new NotImplementedException();
-    }
+        var airline = await _db.Airlines.FirstOrDefaultAsync( a => a.Id == id);
+        if (airline is null) return null;
 
-    public async Task<object?> DeleteAirline(long id)
+        airline.Update(dto.IataCode,dto.IcaoCode,dto.Name);
+        await _db.SaveChangesAsync();
+
+        return EntityToDto.Compile().Invoke(airline);
+    }
+    
+    /// <summary>
+    /// Will remove airline if it exist else it will return false.
+    /// </summary>
+    /// <param name="id">Airline's id.</param>
+    public async Task<bool> DeleteAirline(long id)
     {
-        throw new NotImplementedException();
+        var airline = await _db.Airlines.FirstOrDefaultAsync(a => a.Id == id);
+        if (airline is null)
+        {
+            _logger.LogWarning("Airline not found.");
+            return false;
+        }
+
+        _db.Airlines.Remove(airline);
+        return await _db.SaveChangesAsync() > 0;
     }
 }

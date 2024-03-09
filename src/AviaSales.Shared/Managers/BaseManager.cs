@@ -100,7 +100,7 @@ public abstract class BaseManager<TContext, TEntity, TKey, TDto> : IManager
     /// </summary>
     /// <param name="id">The unique identifier of the entity.</param>
     /// <returns>A model or null if not found.</returns>
-    public virtual async ValueTask<TDto?> GetByIdAsync(TKey id)
+    public virtual async ValueTask<TDto?> GetById(TKey id)
     {
         return await Set()
             .AsNoTracking()
