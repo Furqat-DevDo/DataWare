@@ -56,19 +56,9 @@ public class Flight : Entity<long>, IAuditable
     public DateTime ArrrivalTime { get; private set; }
 
     /// <summary>
-    /// Gets or sets the prices associated with the flight.
-    /// </summary>
-    public IEnumerable<Price> PriceList { get; private set; }
-
-    /// <summary>
     /// Gets a read-only list of prices associated with the flight.
     /// </summary>
     public IReadOnlyList<Price> Prices => _prices.ToList();
-    
-    /// <summary>
-    /// Gets or sets the bookings associated with the flight.
-    /// </summary>
-    public IEnumerable<Booking> BookingList { get; private set; }
 
     /// <summary>
     /// Gets a read-only list of bookings associated with the flight.

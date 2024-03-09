@@ -15,18 +15,15 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Booking> builder)
     {
-        // Configures the primary key for the Booking entity.
-        builder.HasKey(b => b.Id);
-
         // Configures the relationship with Flight.
         builder.HasOne(b => b.Flight)
-            .WithMany(f => f.BookingList)
+            .WithMany(f => f.Bookings)
             .HasForeignKey(b => b.FlightId)
             .OnDelete(DeleteBehavior.Restrict);
 
         // Configures the relationship with Passenger.
         builder.HasOne(b => b.Passenger)
-            .WithMany(p => p.BookingList)
+            .WithMany(p => p.Bookings)
             .HasForeignKey(b => b.PassengerId)
             .OnDelete(DeleteBehavior.Restrict);
 

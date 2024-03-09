@@ -44,11 +44,6 @@ public class Passenger : Entity<long>
     public string Fullname { get; private set; }
     
     /// <summary>
-    /// Used For navigation .
-    /// </summary>
-    public List<Booking> BookingList { get; private set; }
-    
-    /// <summary>
     /// used for acsess real bookings.
     /// </summary>
     public IReadOnlyList<Booking> Bookings => _bookings.ToList();

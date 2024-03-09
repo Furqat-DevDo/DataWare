@@ -15,9 +15,6 @@ public class AirportConfiguration : IEntityTypeConfiguration<Airport>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Airport> builder)
     {
-        // Configures the primary key for the Airport entity.
-        builder.HasKey(a => a.Id);
-
         // Configures the unique code associated with the airport.
         builder.Property(a => a.Code)
             .IsRequired();
@@ -45,5 +42,21 @@ public class AirportConfiguration : IEntityTypeConfiguration<Airport>
         // Configures the country where the airport is situated.
         builder.Property(a => a.Country)
             .IsRequired();
+        
+        // Configuring owned types.
+        builder.OwnsOne(a => a.Details, d =>
+        {
+            d.Property(p => p.IataCode).HasColumnName("IataCode");
+            d.Property(p => p.IcaoCode).HasColumnName("IcaoCode");
+            d.Property(p => p.Facilities).HasColumnName("Facilities");
+        });
+        
+        // Configuring owned types.
+        builder.OwnsOne(a => a.Location, l =>
+        {
+            l.Property(p => p.Longitude).HasColumnName("Longtitude");
+            l.Property(p => p.Latitude).HasColumnName("Latitude");
+            l.Property(p => p.Elevation).HasColumnName("Elevation");
+        });
     }
 }

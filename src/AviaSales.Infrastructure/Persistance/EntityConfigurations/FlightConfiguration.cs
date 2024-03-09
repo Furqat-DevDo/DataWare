@@ -15,12 +15,9 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Flight> builder)
     {
-        // Configures the primary key for the Flight entity.
-        builder.HasKey(f => f.Id);
-
         // Configures the relationship with the Airline entity.
         builder.HasOne(f => f.Airline)
-            .WithMany()
+            .WithMany(a => a.Flights)
             .HasForeignKey(f => f.AirlineId);
 
         // Configures the relationship with the DepartureAirport entity.
@@ -38,5 +35,13 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
             .WithOne(p => p.Flight)
             .HasForeignKey<Flight>(f => f.PassengerId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.OwnsMany(f => f.Prices, pr =>
+        {
+            pr.Property(p => p.Amount).HasColumnName("Amount");
+            pr.Property(p => p.Type)
+                .HasColumnName("PriceType")
+                .HasConversion<string>();
+        });
     }
 }

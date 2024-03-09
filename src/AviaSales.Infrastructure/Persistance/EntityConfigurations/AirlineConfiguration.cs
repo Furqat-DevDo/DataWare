@@ -15,9 +15,6 @@ public class AirlineConfiguration : IEntityTypeConfiguration<Airline>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Airline> builder)
     {
-        // Configures the primary key for the Airline entity.
-        builder.HasKey(a => a.Id);
-
         // Configures the one-to-many relationship with the Flight entity.
         builder.HasMany(a => a.Flights)
             .WithOne(f => f.Airline)

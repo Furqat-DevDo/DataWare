@@ -22,11 +22,6 @@ public class Airline : Entity<long>
     /// Gets or sets the name of the airline.
     /// </summary>
     public string Name { get; private set; }
-    
-    /// <summary>
-    /// Gets or sets the list of flights associated with the airline.
-    /// </summary>
-    public List<Flight> Flight { get; private set; }
 
     /// <summary>
     /// Gets a read-only collection of flights associated with the airline.

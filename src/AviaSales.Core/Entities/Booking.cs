@@ -11,7 +11,7 @@ public class Booking : Entity<long>
     /// <summary>
     /// Gets or sets the ID of the flight associated with the booking.
     /// </summary>
-    public long FlightId { get; set; }
+    public long FlightId { get; private set; }
 
     /// <summary>
     /// Gets or sets the reference to the associated flight.
@@ -21,7 +21,7 @@ public class Booking : Entity<long>
     /// <summary>
     /// Gets or sets the ID of the passenger associated with the booking.
     /// </summary>
-    public long PassengerId { get; set; }
+    public long PassengerId { get; private set; }
 
     /// <summary>
     /// Gets or sets the reference to the associated passenger.
@@ -31,17 +31,17 @@ public class Booking : Entity<long>
     /// <summary>
     /// Gets or sets the date and time when the booking was made.
     /// </summary>
-    public DateTime BookingDateTime { get; set; }
+    public DateTime BookingDateTime { get; private set; }
 
     /// <summary>
     /// Gets or sets the total price of the booking.
     /// </summary>
-    public decimal TotalPrice { get; set; }
+    public decimal TotalPrice { get; private set; }
 
     /// <summary>
     /// Gets or sets the booking status (e.g., confirmed, pending, cancelled).
     /// </summary>
-    public EBookingStatus Status { get; set; }
+    public EBookingStatus Status { get; private set; }
 
     /// <summary>
     /// Creates a new booking entity with the specified details.
