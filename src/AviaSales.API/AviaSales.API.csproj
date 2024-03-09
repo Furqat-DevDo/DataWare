@@ -24,11 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AviaSales.Infrastructure\AviaSales.Infrastructure.csproj" />
       <ProjectReference Include="..\AviaSales.Shared\AviaSales.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
+
 
 </Project>
