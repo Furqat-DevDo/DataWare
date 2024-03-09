@@ -24,4 +24,18 @@ public class AirlineManager : BaseManager<AviaSalesDb,Airline,long,AirlineDto>
             a.IcaoCode,
             a.Name);
 
+    public async Task<object> CreateAirline(CreateAirlineDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> UpdateAirline(long id, CreateAirlineDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> DeleteAirline(long id)
+    {
+        throw new NotImplementedException();
+    }
 }

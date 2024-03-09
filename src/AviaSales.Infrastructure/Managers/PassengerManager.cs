@@ -25,4 +25,19 @@ public class PassengerManager : BaseManager<AviaSalesDb,Passenger,long,Passenger
             p.Phone,
             p.Fullname,
             p.CreatedAt);
+
+    public async Task<object?> Delete(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> UpdatePassenger(long id, CreatePassengerDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> CreatePassenger(CreatePassengerDto dto)
+    {
+        throw new NotImplementedException();
+    }
 }

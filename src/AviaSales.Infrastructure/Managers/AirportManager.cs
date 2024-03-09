@@ -34,4 +34,19 @@ public class AirportManager : BaseManager<AviaSalesDb,Airport,long,AirportDto>
                 ai.Location.Longitude,
                 ai.Location.Latitude,
                 ai.Location.Elevation));
+
+    public async Task<object?> CreateAirport(CreateAirportDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> UpdateAirport(long id, CreateAirportDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> Delete(long id)
+    {
+        throw new NotImplementedException();
+    }
 }

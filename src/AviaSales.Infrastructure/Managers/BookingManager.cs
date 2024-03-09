@@ -25,4 +25,19 @@ public class BookingManager : BaseManager<AviaSalesDb,Booking,long,BookingDto>
             b.Status,
             b.CreatedAt,
             b.UpdatedAt);
+
+    public async Task<object?> CreateBooking(CreateBookingDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> UpdateBooking(long id, CreateBookingDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> Delete(long id)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -27,4 +27,19 @@ public class FlightManager : BaseManager<AviaSalesDb,Flight,long,FlightDto>
             f.PassengerId,
             f.Prices.Select(p => 
                 new PriceDto(p.Amount, p.Type)));
+
+    public async Task<object?> CreateFlight(CreateFlightDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> UpdateFlight(long id, CreateFlightDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<object?> Delete(long id)
+    {
+        throw new NotImplementedException();
+    }
 }
