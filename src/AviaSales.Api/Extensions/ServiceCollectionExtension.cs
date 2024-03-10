@@ -45,7 +45,7 @@ public static class ServiceCollectionExtension
     /// <param name="services">IServiceCollection interface.</param>
     public static void AddValidators(this IServiceCollection services)
     {
-        services.AddValidatorsFromAssemblyContaining<FlightValidator>();
+        services.AddValidatorsFromAssemblyContaining<BookingValidator>();
     } 
     
     /// <summary>
