@@ -59,7 +59,8 @@ public class Booking : Entity<long>
             PassengerId = passengerId,
             BookingDateTime = DateTime.UtcNow,
             TotalPrice = totalPrice,
-            Status = status
+            Status = status,
+            CreatedAt = DateTime.UtcNow
         };
 
         return booking;
@@ -74,5 +75,6 @@ public class Booking : Entity<long>
     {
         TotalPrice = totalPrice;
         Status = status;
+        UpdatedAt = DateTime.UtcNow;
     }
 }

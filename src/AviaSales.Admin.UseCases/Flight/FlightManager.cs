@@ -7,15 +7,26 @@ using Microsoft.Extensions.Logging;
 
 namespace AviaSales.Admin.UseCases.Flight;
 
-public class FlightManager : BaseManager<AviaSalesDb,Core.Entities.Flight,long,FlightDto>
+/// <summary>
+/// Manager class for handling operations related to flights in the AviaSales application.
+/// </summary>
+public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long, FlightDto>
 {
     private readonly ILogger<FlightManager> _logger;
-    
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FlightManager"/> class.
+    /// </summary>
+    /// <param name="db">The database context.</param>
+    /// <param name="logger">The logger for logging messages.</param>
     public FlightManager(AviaSalesDb db, ILogger<FlightManager> logger) : base(db)
     {
         _logger = logger;
     }
 
+    /// <summary>
+    /// Gets the expression to map Flight entities to FlightDto objects.
+    /// </summary>
     protected override Expression<Func<Core.Entities.Flight, FlightDto>> EntityToDto =>
         f => new FlightDto(
             f.Id,
@@ -24,14 +35,17 @@ public class FlightManager : BaseManager<AviaSalesDb,Core.Entities.Flight,long,F
             f.DepartureTime,
             f.ArrivalAirportId,
             f.ArrivalTime,
-            f.PassengerId,
-            f.Prices.Select(p => 
-                new PriceDto(p.Amount, p.Type)));
-    
+            new FlightDetailDto(
+                f.Details.PassengerCount,
+                f.Details.IsAvailable,
+                f.Details.HasFreeBaggage),
+            f.Prices.Select(p => new PriceDto(p.Amount, p.Type)));
+
     /// <summary>
-    /// Will create a new flight.
+    /// Creates a new flight.
     /// </summary>
-    /// <param name="dto">Create flight dto.</param>
+    /// <param name="dto">The data transfer object for creating a flight.</param>
+    /// <returns>The created flight represented as a FlightDto.</returns>
     public async Task<FlightDto> CreateFlight(CreateFlightDto dto)
     {
         var flight = Core.Entities.Flight.Create(
@@ -40,13 +54,18 @@ public class FlightManager : BaseManager<AviaSalesDb,Core.Entities.Flight,long,F
             dto.DepartureTime,
             dto.ArrivalAirportId,
             dto.ArrivalTime,
-            dto.PassengerId);
+            new FlightDetail
+            {
+               IsAvailable = dto.Details.IsAvailable,
+               HasFreeBaggage = dto.Details.HasFreeBagage,
+               PassengerCount = dto.Details.PassengerCount
+            });
 
         foreach (var price in dto.Prices)
         {
             flight.AddPrice(new Price
             {
-                Amount = price.Amount, 
+                Amount = price.Amount,
                 Type = price.Type
             });
         }
@@ -56,35 +75,43 @@ public class FlightManager : BaseManager<AviaSalesDb,Core.Entities.Flight,long,F
 
         return EntityToDto.Compile().Invoke(flight);
     }
-    
+
     /// <summary>
-    /// Will update flight information if it is exists else will return null.
+    /// Updates flight information if it exists; otherwise, returns null.
     /// </summary>
-    /// <param name="id">Flight's id.</param>
-    /// <param name="dto">Update Flight dto.</param>
+    /// <param name="id">The identifier of the flight to update.</param>
+    /// <param name="dto">The data transfer object for updating a flight.</param>
+    /// <returns>The updated flight represented as a FlightDto, or null if the flight is not found.</returns>
     public async Task<FlightDto?> UpdateFlight(long id, UpdateFlightDto dto)
     {
         var flight = await _db.Flights.FirstOrDefaultAsync(f => f.Id == id);
         if (flight is null) return null;
 
-        flight.Update(dto.AirlineId,dto.DepartureTime,dto.ArrivalTime,dto.PassengerId);
+        flight.Update(dto.AirlineId, dto.DepartureTime, dto.ArrivalTime,  
+        new FlightDetail
+        {
+            IsAvailable = dto.Details.IsAvailable,
+            HasFreeBaggage = dto.Details.HasFreeBagage,
+            PassengerCount = dto.Details.PassengerCount
+        });
 
-        var prices = dto.Prices.Select(p => new Price {Amount = p.Amount,Type = p.Type});
+        var prices = dto.Prices.Select(p => new Price { Amount = p.Amount, Type = p.Type });
         flight.UpdatePrices(prices);
 
         await _db.SaveChangesAsync();
-        
+
         return EntityToDto.Compile().Invoke(flight);
     }
-    
+
     /// <summary>
-    /// Will delete flight from db if not exists return false.
+    /// Deletes a flight with the specified identifier.
     /// </summary>
-    /// <param name="id">Flight's id.</param>
+    /// <param name="id">The identifier of the flight to delete.</param>
+    /// <returns>True if the deletion is successful; otherwise, false.</returns>
     public async Task<bool> Delete(long id)
     {
         var flight = await _db.Flights.FirstOrDefaultAsync(f => f.Id == id);
-        
+
         if (flight is null)
         {
             _logger.LogWarning($"Flight with id {id} not found.");

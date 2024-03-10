@@ -30,11 +30,13 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
             .WithMany()
             .HasForeignKey(f => f.ArrivalAirportId);
         
-        // Configures Passenger and Flight Relation Ship
-        builder.HasOne(f => f.Passenger)
-            .WithOne(p => p.Flight)
-            .HasForeignKey<Flight>(f => f.PassengerId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // Configures Flight additional informations
+        builder.OwnsOne(f => f.Details, d =>
+        {
+            d.Property(p => p.IsAvailable).HasColumnName("IsAvailable");
+            d.Property(p => p.HasFreeBaggage).HasColumnName("HasFreeBagage");
+            d.Property(p => p.PassengerCount).HasColumnName("PassengerCount");
+        });
         
         builder.OwnsMany(f => f.Prices, pr =>
         {

@@ -62,16 +62,11 @@ public class Flight : Entity<long>
     /// Gets a read-only list of bookings associated with the flight.
     /// </summary>
     public IReadOnlyList<Booking> Bookings { get; set; }
-
-    /// <summary>
-    /// Foreign key for passenger.
-    /// </summary>
-    public long PassengerId { get; set; }
     
     /// <summary>
-    /// Navigation Property .
+    /// Additional informations about flight.
     /// </summary>
-    public virtual Passenger? Passenger { get; set; }
+    public FlightDetail Details { get; private set; }
 
     /// <summary>
     /// Creates a new flight entity with the specified details.
@@ -81,10 +76,10 @@ public class Flight : Entity<long>
     /// <param name="departueTime">The departure time of the flight.</param>
     /// <param name="arrivalAirportId">The ID of the arrival airport for the flight.</param>
     /// <param name="arrrivalTime">The arrival time of the flight.</param>
-    /// <param name="passengerId"></param>
+    /// <param name="details">Additional information about Flight.</param>
     /// <returns>A new instance of the <see cref="Flight"/> class.</returns>
     public static Flight Create(long airlineId, long departureAirportId, DateTime departueTime, long arrivalAirportId, 
-        DateTime arrrivalTime,long passengerId)
+        DateTime arrrivalTime,FlightDetail details)
     {
         var flight = new Flight
         {
@@ -94,7 +89,7 @@ public class Flight : Entity<long>
             ArrivalAirportId = arrivalAirportId,
             ArrivalTime = arrrivalTime,
             CreatedAt = DateTime.UtcNow,
-            PassengerId = passengerId
+            Details = details
         };
 
         return flight;
@@ -108,21 +103,21 @@ public class Flight : Entity<long>
     {
         _prices.Add(price);
     }
-    
+
     /// <summary>
     /// Updates flight information, including the airline, departure time, arrival time, and passenger.
     /// </summary>
     /// <param name="airlineId">The identifier of the associated airline.</param>
     /// <param name="departureTime">The updated departure time of the flight.</param>
     /// <param name="arrivalTime">The updated arrival time of the flight.</param>
-    /// <param name="passengerId">The identifier of the associated passenger.</param>
-    public void Update(long airlineId, DateTime departureTime, DateTime arrivalTime, long passengerId)
+    /// <param name="details">Additional informations about Flight.</param>
+    public void Update(long airlineId, DateTime departureTime, DateTime arrivalTime,FlightDetail details)
     {
         AirlineId = airlineId;
         DepartureTime = departureTime;
         ArrivalTime = arrivalTime;
         CreatedAt = DateTime.UtcNow;
-        PassengerId = passengerId;
+        Details = details;
     }
 
     /// <summary>

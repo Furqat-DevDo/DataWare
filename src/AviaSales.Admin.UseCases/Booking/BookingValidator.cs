@@ -20,14 +20,14 @@ public class BookingValidator : AbstractValidator<CreateBookingDto>
             .GreaterThan(0)
             .WithMessage("Flight id must be greater than 0.")
             .MustAsync(async (flightId, cancellationToken)
-                => await db.Flights.AnyAsync(f => f.Id != flightId, cancellationToken))
+                => await db.Flights.AnyAsync(f => f.Id == flightId, cancellationToken))
             .WithMessage("Flight does not exist.");
         
         RuleFor(b => b.PassengerId)
             .GreaterThan(0)
             .WithMessage("Passenger id must be greater than 0.")
             .MustAsync(async (passengerId, cancellationToken)
-                => await db.Passengers.AnyAsync(p => p.Id != passengerId, cancellationToken))
+                => await db.Passengers.AnyAsync(p => p.Id == passengerId, cancellationToken))
             .WithMessage("Passenger does not exit.");
         
         RuleFor(b => b.TotalPrice).GreaterThan(0);

@@ -17,7 +17,7 @@ public class PassengerConfiguration : IEntityTypeConfiguration<Passenger>
     {
         // Configures the one-to-one relationship with Flight.
         builder.HasOne(p => p.Flight)
-            .WithOne(f => f.Passenger)
+            .WithOne()
             .HasForeignKey<Passenger>(p => p.FlightId)
             .OnDelete(DeleteBehavior.Cascade);
 

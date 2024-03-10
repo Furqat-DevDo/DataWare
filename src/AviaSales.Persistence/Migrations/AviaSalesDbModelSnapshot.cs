@@ -171,23 +171,20 @@ namespace AviaSales.Persistence.Migrations
                     b.Property<long>("ArrivalAirportId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("ArrrivalTime")
+                    b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("DepartueTime")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<long>("DepartureAirportId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("DepartureTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
-
-                    b.Property<long>("PassengerId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -356,6 +353,31 @@ namespace AviaSales.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("AviaSales.Core.Entities.FlightDetail", "Details", b1 =>
+                        {
+                            b1.Property<long>("FlightId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<bool>("HasFreeBaggage")
+                                .HasColumnType("boolean")
+                                .HasColumnName("HasFreeBagage");
+
+                            b1.Property<bool>("IsAvailable")
+                                .HasColumnType("boolean")
+                                .HasColumnName("IsAvailable");
+
+                            b1.Property<int>("PassengerCount")
+                                .HasColumnType("integer")
+                                .HasColumnName("PassengerCount");
+
+                            b1.HasKey("FlightId");
+
+                            b1.ToTable("Flights");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FlightId");
+                        });
+
                     b.OwnsMany("AviaSales.Core.Entities.Price", "Prices", b1 =>
                         {
                             b1.Property<long>("FlightId")
@@ -390,13 +412,16 @@ namespace AviaSales.Persistence.Migrations
 
                     b.Navigation("DepartureAirport");
 
+                    b.Navigation("Details")
+                        .IsRequired();
+
                     b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Passenger", b =>
                 {
                     b.HasOne("AviaSales.Core.Entities.Flight", "Flight")
-                        .WithOne("Passenger")
+                        .WithOne()
                         .HasForeignKey("AviaSales.Core.Entities.Passenger", "FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -412,8 +437,6 @@ namespace AviaSales.Persistence.Migrations
             modelBuilder.Entity("AviaSales.Core.Entities.Flight", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Passenger");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Passenger", b =>

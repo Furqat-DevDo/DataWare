@@ -81,7 +81,8 @@ public class Airport : Entity<long>
             City = city,
             Country = country,
             Details = details,
-            Location = location
+            Location = location,
+            CreatedAt = DateTime.UtcNow
         };
 
         return airport;
@@ -111,5 +112,6 @@ public class Airport : Entity<long>
         Country = country;
         Details = details;
         Location = location;
+        UpdatedAt = DateTime.UtcNow;
     }
 }

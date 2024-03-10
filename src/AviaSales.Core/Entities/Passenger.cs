@@ -62,9 +62,28 @@ public class Passenger : Entity<long>
             FlightId = flightId,
             Email = email,
             Phone = phone,
-            Fullname = fullname
+            Fullname = fullname,
+            CreatedAt = DateTime.UtcNow
         };
 
         return passenger;
+    }
+
+    /// <summary>
+    /// Updates user information for a specific flight.
+    /// </summary>
+    /// <param name="userId">The unique identifier of the user (optional). Pass null if not applicable.</param>
+    /// <param name="flightId">The unique identifier of the flight.</param>
+    /// <param name="phone">The updated phone number associated with the user.</param>
+    /// <param name="email">The updated email address associated with the user.</param>
+    /// <param name="fullname">The updated full name of the user.</param>
+    public void Update(long? userId, long flightId, string phone, string email, string fullname)
+    {
+        UserId = userId;
+        FlightId = flightId;
+        Phone = phone;
+        Email = email;
+        Fullname = fullname;
+        UpdatedAt = DateTime.UtcNow;
     }
 }

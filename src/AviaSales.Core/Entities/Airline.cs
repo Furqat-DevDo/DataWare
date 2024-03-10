@@ -61,5 +61,6 @@ public class Airline : Entity<long>
         IataCode = iataCode;
         IcaoCode = icaoCode;
         Name = name;
+        UpdatedAt = DateTime.UtcNow;
     }
 }
