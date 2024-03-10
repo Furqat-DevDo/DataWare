@@ -66,7 +66,7 @@ public class AirportsController : ControllerBase
     public async Task<IActionResult> DeleteAsync([FromRoute]long id)
     {
         var result = await _manager.Delete(id);
-        return result ? NotFound() : Ok();
+        return result ? Ok() : NotFound();
     }
     
     /// <summary>

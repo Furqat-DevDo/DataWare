@@ -32,6 +32,7 @@ public class AirlineManager : BaseManager<AviaSalesDb,Core.Entities.Airline,long
         var airline = Core.Entities.Airline.Create(dto.IataCode,dto.IcaoCode,dto.Name);
         
         await _db.Airlines.AddAsync(airline);
+        await _db.SaveChangesAsync();
         
         return EntityToDto.Compile().Invoke(airline);
     }

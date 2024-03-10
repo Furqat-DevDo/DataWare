@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "AviaSales.API": {
+    "AviaSales.Admin.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

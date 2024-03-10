@@ -17,9 +17,9 @@ public class AirportValidator : AbstractValidator<CreateAirportDto>
         RuleFor(a => a.Label).NotEmpty().NotNull();
         
         RuleFor(a => a.Location).NotNull();
-        RuleFor(a => a.Location.Longtitude).GreaterThan(0);
-        RuleFor(a => a.Location.Latitude).GreaterThan(0);
-        RuleFor(a => a.Location.Elevation).GreaterThan(0);
+        RuleFor(a => a.Location.Longtitude).NotNull();
+        RuleFor(a => a.Location.Latitude).NotNull();
+        RuleFor(a => a.Location.Elevation).NotNull();
 
         RuleFor(a => a.Details).NotNull();
         RuleFor(a => a.Details.IataCode).NotEmpty().NotNull();
