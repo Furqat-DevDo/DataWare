@@ -21,11 +21,12 @@ public class AirlinesController : ControllerBase
     /// </summary>
     /// <param name="page">Page number.</param>
     /// <param name="perPage">Elements count per page.</param>
+    /// <param name="filter">Filters</param>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<AirlineDto>),200)]
-    public async Task<IActionResult> GetListAsync([FromQuery]ushort page,[FromQuery]byte perPage)
+    public async Task<IActionResult> GetListAsync(ushort page,byte perPage,[FromQuery]AirlineFilter filter)
     {
-        return Ok(await _manager.GetList(new Pager(page,perPage)));
+        return Ok(await _manager.GetAirLines(new Pager(page,perPage),filter));
     }
 
     /// <summary>

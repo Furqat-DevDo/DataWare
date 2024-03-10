@@ -54,5 +54,7 @@ public record UpdateFlightDto(long AirlineId, DateTime DepartureTime, DateTime A
 /// <param name="PassengerCount">Max passenger count in flight.</param>
 /// <param name="IsAvailable">Is Flight Available now.</param>
 /// <param name="HasFreeBagage">Has Flight Free Bagage.</param>
-public record FlightDetailDto(int PassengerCount,bool IsAvailable,bool HasFreeBagage);
+/// <param name="TransactionsCount">Number of transactions.</param>
+/// <param name="HasTransaction">Shows is flight direct or not.</param>
+public record FlightDetailDto(int PassengerCount,bool IsAvailable,bool HasFreeBagage,int TransactionsCount,bool HasTransaction);
 

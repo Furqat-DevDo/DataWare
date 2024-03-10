@@ -21,9 +21,9 @@ public class AirportsController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<AirportDto>),200)]
-    public async Task<IActionResult> GetList([FromQuery]ushort page,[FromQuery]byte perPage)
+    public async Task<IActionResult> GetList(ushort page,byte perPage,[FromQuery]AirportFilter filter)
     {
-        return Ok(await _manager.GetList(new Pager(page,perPage)));
+        return Ok(await _manager.GetAirports(new Pager(page,perPage),filter));
     }
     
     /// <summary>

@@ -22,4 +22,14 @@ public class FlightDetail
     /// Gets or sets a value indicating whether the flight allows free baggage for passengers.
     /// </summary>
     public bool HasFreeBaggage { get; set; }
+    
+    /// <summary>
+    /// Number of Transactions.
+    /// </summary>
+    public int TransactionsCount { get; set; }
+    
+    /// <summary>
+    /// Represent is flight direct or not.
+    /// </summary>
+    public bool HasTransaction { get; set; }
 }

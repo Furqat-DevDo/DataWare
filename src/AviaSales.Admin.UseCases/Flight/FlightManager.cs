@@ -38,7 +38,9 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
             new FlightDetailDto(
                 f.Details.PassengerCount,
                 f.Details.IsAvailable,
-                f.Details.HasFreeBaggage),
+                f.Details.HasFreeBaggage,
+                f.Details.TransactionsCount,
+                f.Details.HasTransaction),
             f.Prices.Select(p => new PriceDto(p.Amount, p.Type)));
 
     /// <summary>
@@ -58,7 +60,9 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
             {
                IsAvailable = dto.Details.IsAvailable,
                HasFreeBaggage = dto.Details.HasFreeBagage,
-               PassengerCount = dto.Details.PassengerCount
+               PassengerCount = dto.Details.PassengerCount,
+               TransactionsCount =  dto.Details.TransactionsCount,
+               HasTransaction = dto.Details.HasTransaction
             });
 
         foreach (var price in dto.Prices)
@@ -92,7 +96,9 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
         {
             IsAvailable = dto.Details.IsAvailable,
             HasFreeBaggage = dto.Details.HasFreeBagage,
-            PassengerCount = dto.Details.PassengerCount
+            PassengerCount = dto.Details.PassengerCount,
+            TransactionsCount =  dto.Details.TransactionsCount,
+            HasTransaction = dto.Details.HasTransaction
         });
 
         var prices = dto.Prices.Select(p => new Price { Amount = p.Amount, Type = p.Type });

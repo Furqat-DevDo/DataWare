@@ -30,3 +30,12 @@ public record PriceDto(decimal Amount, EPriceType Type);
 /// <param name="IsAvailable">Is Flight Available now.</param>
 /// <param name="HasFreeBagage">Has Flight Free Bagage.</param>
 public record FlightDetailDto(int PassengerCount,bool IsAvailable,bool HasFreeBagage);
+
+/// <summary>
+/// Represents filter criteria for retrieving flight information.
+/// </summary>
+/// <param name="From">The starting date and time for the flight information.</param>
+/// <param name="To">The ending date and time for the flight information.</param>
+/// <param name="Airline">The name of the airline for which flight information is filtered.</param>
+/// <param name="Transactions">The number of transactions associated with the flight.</param>
+public record FlightFliters(DateTime? From,DateTime? To,string? Airline,int? Transactions);

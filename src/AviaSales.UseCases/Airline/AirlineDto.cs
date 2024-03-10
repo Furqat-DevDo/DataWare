@@ -9,3 +9,12 @@
 /// <param name="Name">The name of the airline.</param>
 public record AirlineDto(long Id, DateTime CreatedAt, string IataCode, string IcaoCode, string Name);
 
+/// <summary>
+/// Represents a filter for airline information.
+/// </summary>
+/// <param name="Name">The name of the airline.</param>
+/// <param name="IataCode">The International Air Transport Association (IATA) code of the airline. 
+/// This is a three-letter code used to uniquely identify airlines in the aviation industry.</param>
+/// <param name="IcaoCode">The International Civil Aviation Organization (ICAO) code of the airline. 
+/// This is a four-letter alphanumeric code used to uniquely identify airlines in international aviation.</param>
+public record AirlineFilter(string? Name, string? IataCode, string? IcaoCode);
