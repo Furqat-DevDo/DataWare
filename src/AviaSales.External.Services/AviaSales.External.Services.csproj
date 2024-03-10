@@ -7,8 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Clients\" />
+      <Folder Include="Services\" />
       <Folder Include="Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AviaSales.Shared\AviaSales.Shared.csproj" />
     </ItemGroup>
 
 </Project>

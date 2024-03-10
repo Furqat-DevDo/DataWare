@@ -35,6 +35,8 @@ public static class ServiceCollectionExtension
         // Adding Entity Managers.
         services.AddScoped<FlightManager>()
             .AddScoped<BookingManager>();
+        
+        services.AddDistributedMemoryCache();
     }
 
     /// <summary>

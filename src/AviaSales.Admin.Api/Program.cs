@@ -1,9 +1,16 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AviaSales.Admin.Api.Extensions;
 using AviaSales.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+    });
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddValidators();
 builder.Services.AddExtensions(builder.Host);

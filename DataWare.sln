@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaSales.Shared", "src\Avi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaSales.IntegrationTests", "tests\AviaSales.IntegrationTests\AviaSales.IntegrationTests.csproj", "{ADF54200-4346-40C6-AE1F-15DC22986ACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaSales.External.Clients", "src\AviaSales.External.Clients\AviaSales.External.Clients.csproj", "{830841FE-DE71-488E-9650-D4347534DB47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaSales.External.Services", "src\AviaSales.External.Services\AviaSales.External.Services.csproj", "{830841FE-DE71-488E-9650-D4347534DB47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6EC4E4F6-3B9A-40F3-858E-6E8FC5E43BCE}"
 EndProject
