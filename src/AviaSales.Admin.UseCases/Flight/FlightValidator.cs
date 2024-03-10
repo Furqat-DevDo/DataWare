@@ -39,11 +39,11 @@ public class FlightValidator : AbstractValidator<CreateFlightDto>
                 => await db.Airports.AnyAsync(a => a.Id != airportId, cancellationToken))
             .WithMessage("Departure airport does not exist.");
 
-        RuleFor(f => f.ArrrivalTime)
+        RuleFor(f => f.ArrivalTime)
             .Must(IsValidDateTime)
             .WithMessage("Arrival time is wrong .");
         
-        RuleFor(f => f.DepartueTime)
+        RuleFor(f => f.DepartureTime)
             .Must(IsValidDateTime)
             .WithMessage("Departue time is wrong .");
 
@@ -52,6 +52,46 @@ public class FlightValidator : AbstractValidator<CreateFlightDto>
             .SetValidator(new PriceValidator());
     }
     
+    private bool IsValidDateTime(DateTime dateTime)
+    {
+        return dateTime != DateTime.MaxValue && dateTime != DateTime.MinValue;
+    }
+}
+
+public class UpdateFlightValidator : AbstractValidator<UpdateFlightDto>
+{
+    public UpdateFlightValidator(AviaSalesDb db)
+    {
+        ClassLevelCascadeMode = CascadeMode.Continue;
+        RuleLevelCascadeMode = CascadeMode.Stop;
+        
+        RuleFor(f => f.AirlineId) 
+            .GreaterThan(0)
+            .WithMessage("Airline id must be grater than 0.")
+            .MustAsync(async (airlineId, cancellationToken)
+                => await db.Airlines.AnyAsync(a => a.Id != airlineId, cancellationToken))
+            .WithMessage("Airline does not exist.");
+        
+        RuleFor(f => f.PassengerId) 
+            .GreaterThan(0)
+            .WithMessage("Passenger id must be grater than 0.")
+            .MustAsync(async (passengerId, cancellationToken)
+                => await db.Passengers.AnyAsync(a => a.Id != passengerId, cancellationToken))
+            .WithMessage("Passenger does not exist.");
+        RuleFor(f => f.ArrivalTime)
+            .Must(IsValidDateTime)
+            .WithMessage("Arrival time is wrong .");
+        
+        RuleFor(f => f.DepartureTime)
+            .Must(IsValidDateTime)
+            .WithMessage("Departue time is wrong .");
+
+        RuleForEach(f => f.Prices)
+            .NotNull()
+            .SetValidator(new PriceValidator());
+        
+    }
+
     private bool IsValidDateTime(DateTime dateTime)
     {
         return dateTime != DateTime.MaxValue && dateTime != DateTime.MinValue;

@@ -8,7 +8,7 @@ namespace AviaSales.Core.Entities;
 public class Flight : Entity<long>
 {
     // Private collection for storing prices associated with the flight.
-    private readonly HashSet<Price> _prices = new();
+    private readonly List<Price> _prices = new();
 
     // Private parameterless constructor to prevent direct instantiation.
     private Flight() { }
@@ -36,7 +36,7 @@ public class Flight : Entity<long>
     /// <summary>
     /// Gets or sets the departure time of the flight.
     /// </summary>
-    public DateTime DepartueTime { get; private set; }
+    public DateTime DepartureTime { get; private set; }
 
     /// <summary>
     /// Gets or sets the ID of the arrival airport for the flight.
@@ -51,12 +51,12 @@ public class Flight : Entity<long>
     /// <summary>
     /// Gets or sets the arrival time of the flight.
     /// </summary>
-    public DateTime ArrrivalTime { get; private set; }
+    public DateTime ArrivalTime { get; private set; }
 
     /// <summary>
     /// Gets a read-only list of prices associated with the flight.
     /// </summary>
-    public IReadOnlyList<Price> Prices => _prices.ToList();
+    public IReadOnlyList<Price> Prices => _prices;
 
     /// <summary>
     /// Gets a read-only list of bookings associated with the flight.
@@ -90,9 +90,9 @@ public class Flight : Entity<long>
         {
             AirlineId = airlineId,
             DepartureAirportId = departureAirportId,
-            DepartueTime = departueTime,
+            DepartureTime = departueTime,
             ArrivalAirportId = arrivalAirportId,
-            ArrrivalTime = arrrivalTime,
+            ArrivalTime = arrrivalTime,
             CreatedAt = DateTime.UtcNow,
             PassengerId = passengerId
         };
@@ -107,5 +107,32 @@ public class Flight : Entity<long>
     public void AddPrice(Price price)
     {
         _prices.Add(price);
+    }
+    
+    /// <summary>
+    /// Updates flight information, including the airline, departure time, arrival time, and passenger.
+    /// </summary>
+    /// <param name="airlineId">The identifier of the associated airline.</param>
+    /// <param name="departureTime">The updated departure time of the flight.</param>
+    /// <param name="arrivalTime">The updated arrival time of the flight.</param>
+    /// <param name="passengerId">The identifier of the associated passenger.</param>
+    public void Update(long airlineId, DateTime departureTime, DateTime arrivalTime, long passengerId)
+    {
+        AirlineId = airlineId;
+        DepartureTime = departureTime;
+        ArrivalTime = arrivalTime;
+        CreatedAt = DateTime.UtcNow;
+        PassengerId = passengerId;
+    }
+
+    /// <summary>
+    /// Updates the prices associated with the flight.
+    /// </summary>
+    /// <param name="prices">A collection of Price objects representing the updated prices for the flight.</param>
+    public void UpdatePrices(IEnumerable<Price> prices)
+    {
+        // Clears existing prices and adds the updated prices to the flight.
+        _prices.Clear();
+        _prices.AddRange(prices);
     }
 }
