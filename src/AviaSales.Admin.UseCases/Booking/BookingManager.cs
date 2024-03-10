@@ -47,7 +47,7 @@ public class BookingManager : BaseManager<AviaSalesDb,Core.Entities.Booking,long
     /// </summary>
     /// <param name="id">Booking's id.</param>
     /// <param name="dto"></param>
-    public async Task<object?> UpdateBooking(long id, UpdateBookingDto dto)
+    public async Task<BookingDto?> UpdateBooking(long id, UpdateBookingDto dto)
     {
         var booking = await _db.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         if (booking is null) return null;
@@ -56,9 +56,21 @@ public class BookingManager : BaseManager<AviaSalesDb,Core.Entities.Booking,long
         await _db.SaveChangesAsync();
         return EntityToDto.Compile().Invoke(booking);
     }
-
-    public async Task<object?> Delete(long id)
+    
+    /// <summary>
+    /// Will remove booking from db if it exists else will return false.
+    /// </summary>
+    /// <param name="id">Booking's id.</param>
+    public async Task<bool> Delete(long id)
     {
-        throw new NotImplementedException();
+        var booking = await _db.Bookings.FirstOrDefaultAsync(b => b.Id == id);
+        if (booking is null)
+        {
+            _logger.LogWarning($"Booking with id {id} not found.");
+            return false;
+        }
+
+        _db.Bookings.Remove(booking);
+        return await _db.SaveChangesAsync() > 0;
     }
 }
