@@ -38,4 +38,4 @@ public record FlightDetailDto(int PassengerCount,bool IsAvailable,bool HasFreeBa
 /// <param name="To">The ending date and time for the flight information.</param>
 /// <param name="Airline">The name of the airline for which flight information is filtered.</param>
 /// <param name="Transactions">The number of transactions associated with the flight.</param>
-public record FlightFliters(DateTime? From,DateTime? To,string? Airline,int? Transactions);
+public record FlightFilters(DateTime? From,DateTime? To,string? Airline,int? Transactions);

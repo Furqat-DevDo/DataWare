@@ -12,6 +12,7 @@ namespace AviaSales.UseCases.Flight;
 public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long, FlightDto>
 {
     private readonly ILogger<FlightManager> _logger;
+    
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlightManager"/> class.
@@ -40,7 +41,7 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
                 f.Details.HasFreeBaggage),
             f.Prices.Select(p => new PriceDto(p.Amount, p.Type)));
 
-    public async Task<IEnumerable<FlightDto>> GetFlights(Pager pager,FlightFliters filters)
+    public async Task<IEnumerable<FlightDto>> GetFlights(Pager pager,FlightFilters filters)
     {
         throw new NotImplementedException();
     }
