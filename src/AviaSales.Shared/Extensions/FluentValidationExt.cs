@@ -1,13 +1,14 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace AviaSales.Api.Extensions;
+namespace AviaSales.Shared.Extensions;
 
 /// <summary>
 /// Will extend Fluent Validation result class.
 /// </summary>
-public static class ValidationResultExt
+public static class FluentValidationExt
 {
     /// <summary>
     /// Will extend model state dictionary and add fluent validation errors to model state.

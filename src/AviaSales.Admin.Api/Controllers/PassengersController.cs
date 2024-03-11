@@ -1,5 +1,5 @@
-﻿using AviaSales.Admin.Api.Extensions;
-using AviaSales.Admin.UseCases.Passenger;
+﻿using AviaSales.Admin.UseCases.Passenger;
+using AviaSales.Shared.Extensions;
 using AviaSales.Shared.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;

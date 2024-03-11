@@ -1,4 +1,4 @@
-﻿using AviaSales.Api.Extensions;
+﻿using AviaSales.Shared.Extensions;
 using AviaSales.Shared.Models;
 using AviaSales.UseCases.Booking;
 using FluentValidation;
