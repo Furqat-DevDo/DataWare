@@ -11,7 +11,8 @@ builder.Services.AddControllers()
         opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
     });
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
+builder.Services.AddDb(builder.Configuration);
 builder.Services.AddValidators();
 builder.Services.AddExtensions(builder.Host);
 builder.Services.AddAuth(builder.Configuration);

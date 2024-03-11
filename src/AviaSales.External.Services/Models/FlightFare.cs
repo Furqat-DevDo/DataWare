@@ -2,11 +2,6 @@
 
 namespace AviaSales.External.Services.Models;
 
-public class FlightFare
-{
-    
-}
-// Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
     public class _0
     {
         [JsonPropertyName("airport")]
@@ -184,7 +179,7 @@ public class FlightFare
         public Totals Totals { get; set; }
     }
 
-    public class Root
+    public class FlightFare
     {
         [JsonPropertyName("status")]
         public int Status { get; set; }
@@ -196,31 +191,34 @@ public class FlightFare
         public List<Result> Results { get; } = new List<Result>();
     }
 
+    /// <summary>
+    /// Searching filters
+    /// </summary>
     public class SearchData
     {
         [JsonPropertyName("from")]
-        public string From { get; set; }
+        public string? From { get; set; }
 
         [JsonPropertyName("to")]
-        public string To { get; set; }
+        public string? To { get; set; }
 
         [JsonPropertyName("date")]
-        public string Date { get; set; }
+        public string? Date { get; set; }
 
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonPropertyName("adult")]
-        public int Adult { get; set; }
+        public int? Adult { get; set; }
 
         [JsonPropertyName("child")]
-        public int Child { get; set; }
+        public int? Child { get; set; }
 
         [JsonPropertyName("infant")]
-        public int Infant { get; set; }
+        public int? Infant { get; set; }
 
         [JsonPropertyName("currency")]
-        public string Currency { get; set; }
+        public string? Currency { get; set; }
     }
 
     public class StopSummary

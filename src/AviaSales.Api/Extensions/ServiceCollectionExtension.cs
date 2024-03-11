@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using AviaSales.External.Services.Extensions;
+using AviaSales.External.Services.Interfaces;
+using AviaSales.External.Services.Services;
 using AviaSales.UseCases.Booking;
 using AviaSales.UseCases.Flight;
 using AviaSales.Persistence;
@@ -23,8 +25,11 @@ public static class ServiceCollectionExtension
         services.AddScoped<FlightManager>()
             .AddScoped<BookingManager>();
         
+        services.AddScoped<IFakeService, FakeService>();
+        
         services.AddCountryService(configuration);
         services.AddFlightFareService(configuration);
+        
         services.AddDistributedMemoryCache();
     }
 

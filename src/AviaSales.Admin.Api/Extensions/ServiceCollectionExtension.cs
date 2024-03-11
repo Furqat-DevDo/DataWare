@@ -4,6 +4,8 @@ using AviaSales.Admin.UseCases.Airport;
 using AviaSales.Admin.UseCases.Booking;
 using AviaSales.Admin.UseCases.Flight;
 using AviaSales.Admin.UseCases.Passenger;
+using AviaSales.External.Services.Interfaces;
+using AviaSales.External.Services.Services;
 using AviaSales.Persistence;
 using AviaSales.Shared.Extensions;
 using AviaSales.Shared.Utilities;
@@ -21,9 +23,26 @@ public static class ServiceCollectionExtension
     /// <param name="services">IServiceCollection interface.</param>
     /// <param name="configuration">IConfiguration interface.</param>
     /// <exception cref="ArgumentNullException">When appsettings is not setted.</exception>
-    public static void AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
+    public static void AddServices(this IServiceCollection services,IConfiguration configuration)
     {
-        // Adding Dbcontext and Split query behavior
+        // Adding Entity Managers.
+        services.AddScoped<AirlineManager>()
+            .AddScoped<AirportManager>()
+            .AddScoped<FlightManager>()
+            .AddScoped<BookingManager>()
+            .AddScoped<PassengerManager>();
+
+        services.AddScoped<IFakeService, FakeService>();
+    }
+
+    /// <summary>
+    /// Adding DbContext and settings.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static void AddDb(this IServiceCollection services,IConfiguration configuration)
+    {
         services.AddDbContext<AviaSalesDb>(options =>
         {
             var connection = configuration.GetConnectionString(nameof(AviaSalesDb))
@@ -34,15 +53,8 @@ public static class ServiceCollectionExtension
                 o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
             });
         });
-        
-        // Adding Entity Managers.
-        services.AddScoped<AirlineManager>()
-            .AddScoped<AirportManager>()
-            .AddScoped<FlightManager>()
-            .AddScoped<BookingManager>()
-            .AddScoped<PassengerManager>();
     }
-
+    
     /// <summary>
     /// Will add all validators.
     /// </summary>
