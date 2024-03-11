@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AviaSales.External.Services.Extensions;
 using AviaSales.UseCases.Booking;
 using AviaSales.UseCases.Flight;
 using AviaSales.Persistence;
@@ -13,14 +14,28 @@ namespace AviaSales.Api.Extensions;
 public static class ServiceCollectionExtension
 {
     /// <summary>
-    /// Adding DbContext and managers here.
+    /// Adding managers and services here.
+    /// </summary>
+    /// <param name="services">IServiceCollection interface.</param>
+    /// <param name="configuration">IConfiguration interface.</param>
+    public static void AddServices(this IServiceCollection services,IConfiguration configuration)
+    {
+        services.AddScoped<FlightManager>()
+            .AddScoped<BookingManager>();
+        
+        services.AddCountryService(configuration);
+        services.AddFlightFareService(configuration);
+        services.AddDistributedMemoryCache();
+    }
+
+    /// <summary>
+    /// Will Add DbContext and it's settings.
     /// </summary>
     /// <param name="services">IServiceCollection interface.</param>
     /// <param name="configuration">IConfiguration interface.</param>
     /// <exception cref="ArgumentNullException">When appsettings is not setted.</exception>
-    public static void AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
+    public static void AddDb(this IServiceCollection services, IConfiguration configuration)
     {
-        // Adding Dbcontext and Split query behavior
         services.AddDbContext<AviaSalesDb>(options =>
         {
             var connection = configuration.GetConnectionString(nameof(AviaSalesDb))
@@ -31,12 +46,6 @@ public static class ServiceCollectionExtension
                 o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
             });
         });
-        
-        // Adding Entity Managers.
-        services.AddScoped<FlightManager>()
-            .AddScoped<BookingManager>();
-        
-        services.AddDistributedMemoryCache();
     }
 
     /// <summary>

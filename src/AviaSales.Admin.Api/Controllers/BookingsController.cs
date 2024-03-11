@@ -34,7 +34,8 @@ public class BookingsController : ControllerBase
             return BadRequest(validationResult.ToProblemDetails());
         
         var result = await _manager.CreateBooking(dto);
-        return Ok(result);
+        
+        return result.IsSuccess ? Ok(result.Data) : BadRequest(result.Error);
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ public class BookingsController : ControllerBase
             return BadRequest(validationResult.ToProblemDetails());
         
         var result = await _manager.UpdateBooking(id,dto);
-        return result is null ? NotFound() : Ok(result);
+        return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
     
     /// <summary>
@@ -63,11 +64,11 @@ public class BookingsController : ControllerBase
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails),404)]
     public async Task<IActionResult> DeleteAsync([FromRoute]long id)
     {
         var result = await _manager.Delete(id);
-        return result ? Ok(): NotFound();
+        return result.IsSuccess ? Ok(): NotFound(result.Error);
     }
     
     /// <summary>

@@ -12,6 +12,7 @@
     </PropertyGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\AviaSales.External.Services\AviaSales.External.Services.csproj" />
       <ProjectReference Include="..\AviaSales.Persistence\AviaSales.Persistence.csproj" />
       <ProjectReference Include="..\AviaSales.Shared\AviaSales.Shared.csproj" />
     </ItemGroup>

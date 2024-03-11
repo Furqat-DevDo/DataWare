@@ -17,6 +17,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\AviaSales.Core\AviaSales.Core.csproj" />
+      <ProjectReference Include="..\AviaSales.External.Services\AviaSales.External.Services.csproj" />
       <ProjectReference Include="..\AviaSales.Persistence\AviaSales.Persistence.csproj" />
     </ItemGroup>
 </Project>

@@ -8,27 +8,60 @@ namespace AviaSales.External.Services.Extensions;
 
 public static class ServiceCollectionExtension
 {
+    /// <summary>
+    /// Adds configuration and services for the Rest Country API to the IServiceCollection.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to configure.</param>
+    /// <param name="configuration">The configuration containing RestCountryOptions.</param>
+    /// <exception cref="ArgumentException">Thrown when an invalid base URL is specified in the configuration.</exception>
     public static void AddCountryService(this IServiceCollection services, IConfiguration configuration)
     {
-        // Configure Rest Country Options.
         services.Configure<RestCountryOptions>(configuration.GetSection(nameof(RestCountryOptions)));
-
-        // Retrieve the base URL from configuration
+        
         var baseAddress = configuration.GetSection("RestCountryOptions:URL").Value
                           ?? throw new ArgumentException(nameof(RestCountryOptions));
+        
+        if (!Uri.TryCreate(baseAddress, UriKind.Absolute, out var uri))
+        {
+            throw new ArgumentException("Invalid base URL specified in configuration.");
+        }
+        
+        services.AddTransient<ICountryService, RestCountryService>();
+        
+        services.AddHttpClient<RestCountryService>(
+            nameof(RestCountryService), client =>
+            {
+                client.BaseAddress = uri;
+            });
+    }
+    
+    /// <summary>
+    /// Adds configuration and services for the Flight Fare API to the IServiceCollection.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to configure.</param>
+    /// <param name="configuration">The configuration containing FlightFareOptions.</param>
+    /// <exception cref="ArgumentException">Thrown when an invalid base URL is specified in the configuration.</exception>
+    public static void AddFlightFareService(this IServiceCollection services, IConfiguration configuration)
+    {
+        
+        services.Configure<FlightFareOptions>(configuration.GetSection(nameof(FlightFareOptions)));
 
-        // Ensure the base URL is a valid URI
+        
+        var baseAddress = configuration.GetSection("FlightFareOptions:URL").Value
+                          ?? throw new ArgumentException(nameof(FlightFareOptions));
+
+        
         if (!Uri.TryCreate(baseAddress, UriKind.Absolute, out var uri))
         {
             throw new ArgumentException("Invalid base URL specified in configuration.");
         }
 
-        // Register RestCountryService for ICountryService
-        services.AddTransient<ICountryService, RestCountryService>();
+        
+        services.AddTransient<IFlightFareService,FlightFareService>();
 
-        // Configure HttpClient with base address and register RestCountryService for HttpClient
-        services.AddHttpClient<RestCountryService>(
-            nameof(RestCountryService), client =>
+       
+        services.AddHttpClient<FlightFareService>(
+            nameof(FlightFareService), client =>
             {
                 client.BaseAddress = uri;
             });
