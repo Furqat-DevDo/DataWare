@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-using AviaSales.External.Services.Interfaces;
+﻿using AviaSales.External.Services.Interfaces;
 using AviaSales.External.Services.Models;
 using AviaSales.External.Services.Options;
+using AviaSales.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -30,17 +30,6 @@ public class RestCountryService : ICountryService
     }
 
     /// <summary>
-    /// Deserializes JSON content from a stream asynchronously.
-    /// </summary>
-    /// <typeparam name="T">The type of object to deserialize.</typeparam>
-    /// <param name="responseStream">The stream containing the JSON content.</param>
-    /// <returns>The deserialized object or default value if deserialization fails.</returns>
-    private async Task<T?> DeserializeJsonAsync<T>(Stream responseStream)
-    {
-        return await JsonSerializer.DeserializeAsync<T>(responseStream) ?? default!;
-    }
-
-    /// <summary>
     /// Performs an HTTP request for a list of countries based on the provided URL.
     /// </summary>
     /// <param name="url">The URL for the countries request.</param>
@@ -50,16 +39,14 @@ public class RestCountryService : ICountryService
         try
         {
             var client = _factory.CreateClient(nameof(RestCountryService));
-            var response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
             
-            await using var responseStream = await response.Content.ReadAsStreamAsync();
-            return await DeserializeJsonAsync<IEnumerable<Country>>(responseStream) ??
-                   throw new InvalidOperationException("Deserialization failed.");
+            var result = await client.GetJsonAsync<IEnumerable<Country>>(url);
+            
+            return result ?? Enumerable.Empty<Country>();
         }
         catch (HttpRequestException ex)
         {
-            _logger.LogError($"Error fetching countries: {ex.Message}");
+            _logger.LogError(ex,"Error fetching countries.");
             throw;
         }
     }
