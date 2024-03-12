@@ -7,6 +7,10 @@ using AviaSales.UseCases.Flight;
 using AviaSales.Persistence;
 using AviaSales.Shared.Extensions;
 using AviaSales.Shared.Utilities;
+using AviaSales.UseCases.Airline;
+using AviaSales.UseCases.Airport;
+using AviaSales.UseCases.Country;
+using AviaSales.UseCases.Passenger;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -23,6 +27,10 @@ public static class ServiceCollectionExtension
     public static void AddServices(this IServiceCollection services,IConfiguration configuration)
     {
         services.AddScoped<FlightManager>()
+            .AddScoped<PassengerManager>()
+            .AddScoped<AirportManager>()
+            .AddScoped<AirlineManager>()
+            .AddScoped<CountryManager>()
             .AddScoped<BookingManager>();
         
         services.AddScoped<IFakeService, FakeService>();

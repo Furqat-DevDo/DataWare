@@ -35,7 +35,7 @@ public class AirlinesController : ControllerBase
     /// <param name="id"> Airline's id.</param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AirlineDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync([FromRoute] long id)
     {
         var result = await _manager.GetById(id);

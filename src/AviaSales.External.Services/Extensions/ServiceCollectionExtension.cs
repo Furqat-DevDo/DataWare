@@ -17,6 +17,7 @@ public static class ServiceCollectionExtension
     public static void AddCountryService(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<RestCountryOptions>(configuration.GetSection(nameof(RestCountryOptions)));
+        services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
         
         var baseAddress = configuration.GetSection("RestCountryOptions:URL").Value
                           ?? throw new ArgumentException(nameof(RestCountryOptions));
@@ -45,7 +46,7 @@ public static class ServiceCollectionExtension
     {
         
         services.Configure<FlightFareOptions>(configuration.GetSection(nameof(FlightFareOptions)));
-
+        services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
         
         var baseAddress = configuration.GetSection("FlightFareOptions:URL").Value
                           ?? throw new ArgumentException(nameof(FlightFareOptions));

@@ -94,5 +94,7 @@ public static class ServiceCollectionExtension
             
             s.AddTokenAuth();
         });
+
+        services.AddDistributedMemoryCache();
     }
 }

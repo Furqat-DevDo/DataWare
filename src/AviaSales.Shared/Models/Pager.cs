@@ -10,11 +10,13 @@ public record Pager
     /// </summary>
     /// <param name="page">page number.</param>
     /// <param name="perPage">elements count per page.</param>
-    public Pager(ushort page, byte perPage)
+    public Pager(ushort? page, byte? perPage)
     {
-        Page = (ushort)(page > 0 ? page : 1);
-        PerPage =(byte) (perPage > 0 ? perPage : 10);
+        Page = (ushort)Math.Max(page ?? 1, (ushort)1);
+        PerPage = (byte)Math.Max(perPage ?? 10, (byte)1);
     }
+
+
 
     /// <summary>
     /// Gets or sets the current page number. Defaults to 1.

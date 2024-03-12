@@ -64,7 +64,7 @@ public class FlightFareService : IFlightFareService
     /// <returns>The constructed URL for the flight fare search.</returns>
     private string CreateUrl(SearchData search)
     {
-        var urlBuilder = new StringBuilder($"/{_options.Value.ApiVersion}");
+        var urlBuilder = new StringBuilder($"/{_options.Value.ApiVersion}/flights");
         
         // Add search parameters to the URL
         AddQueryParam(urlBuilder, "from", search.From);

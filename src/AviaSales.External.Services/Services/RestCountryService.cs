@@ -2,6 +2,7 @@
 using AviaSales.External.Services.Models;
 using AviaSales.External.Services.Options;
 using AviaSales.Shared.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -15,18 +16,28 @@ public class RestCountryService : ICountryService
     private readonly IHttpClientFactory _factory;
     private readonly ILogger<RestCountryService> _logger;
     private readonly IOptions<RestCountryOptions> _options;
-    
+    private readonly IDistributedCache _cache;
+    private readonly IOptions<CacheOptions> _cacheOptions;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RestCountryService"/> class.
     /// </summary>
     /// <param name="logger">The logger for logging events.</param>
     /// <param name="options">The options for configuring the Rest Country client.</param>
-    /// <param name="factory"></param>
-    public RestCountryService(ILogger<RestCountryService> logger, IOptions<RestCountryOptions> options,IHttpClientFactory factory)
+    /// <param name="factory">Http Client factory.</param>
+    /// <param name="cache">In memory cache</param>
+    /// <param name="cacheOptions">Cache options like sliding expiration time or absolute one.</param>
+    public RestCountryService(ILogger<RestCountryService> logger, 
+        IOptions<RestCountryOptions> options,
+        IHttpClientFactory factory, 
+        IDistributedCache cache, 
+        IOptions<CacheOptions> cacheOptions)
     {
         _logger = logger;
         _options = options;
         _factory = factory;
+        _cache = cache;
+        _cacheOptions = cacheOptions;
     }
 
     /// <summary>
@@ -34,15 +45,30 @@ public class RestCountryService : ICountryService
     /// </summary>
     /// <param name="url">The URL for the countries request.</param>
     /// <returns>The deserialized list of <see cref="RestCountry"/> objects.</returns>
-    private async Task<IEnumerable<RestCountry>> PerformCountryRequestAsync(string url)
+    private async Task<IEnumerable<RestCountry>> PerformCountryRequestAsync(string url,string key)
     {
         try
         {
             var client = _factory.CreateClient(nameof(RestCountryService));
             
-            var result = await client.GetJsonAsync<IEnumerable<RestCountry>>(url);
+            _cache.TryGetValue<IEnumerable<RestCountry>>(key, out var response);
+
+            if (response is not null) return response;
             
-            return result ?? Enumerable.Empty<RestCountry>();
+            var result = await client.GetJsonAsync<IEnumerable<RestCountry>>(url);
+
+            if (result is not null)
+            {
+                await _cache.SetAsync(key, result,
+                    new DistributedCacheEntryOptions
+                    {
+                        SlidingExpiration = TimeSpan.FromMinutes(_cacheOptions.Value.SlidingTimeMinute),
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(_cacheOptions.Value.AbsoluteTimeDay)
+                    });
+                return result;
+            }
+            
+            return Enumerable.Empty<RestCountry>();
         }
         catch (HttpRequestException ex)
         {
@@ -58,7 +84,7 @@ public class RestCountryService : ICountryService
     public async Task<IEnumerable<RestCountry>> GetAll()
     {
         var url = $"{_options.Value.ApiVersion}/all";
-        return await PerformCountryRequestAsync(url);
+        return await PerformCountryRequestAsync(url,"all");
     }
 
     /// <summary>
@@ -69,7 +95,7 @@ public class RestCountryService : ICountryService
     public async Task<IEnumerable<RestCountry>> GetByName(string name)
     {
         var url =$"{_options.Value.ApiVersion}/name/{name}";
-        return await PerformCountryRequestAsync(url);
+        return await PerformCountryRequestAsync(url,name);
     }
 
     /// <summary>
@@ -80,7 +106,7 @@ public class RestCountryService : ICountryService
     public async Task<IEnumerable<RestCountry>> GetByCode(string code)
     {
         var url = $"{_options.Value.ApiVersion}/alpha/{code}";
-        return await PerformCountryRequestAsync(url);
+        return await PerformCountryRequestAsync(url,code);
     }
 
     /// <summary>
@@ -91,6 +117,6 @@ public class RestCountryService : ICountryService
     public async Task<IEnumerable<RestCountry>> GetByCapital(string capital)
     {
         var url = $"{_options.Value.ApiVersion}/capital/{capital}";
-        return await PerformCountryRequestAsync(url);
+        return await PerformCountryRequestAsync(url,capital);
     }
 }

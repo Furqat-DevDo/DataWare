@@ -18,7 +18,7 @@ public static class HttpClientExt
     public static async Task<T?> GetJsonAsync<T>(this HttpClient httpClient, string requestUri)
     {
         using var response = await httpClient.GetAsync(requestUri);
-        response.EnsureSuccessStatusCode();
+        //response.EnsureSuccessStatusCode();
 
         await using var responseStream = await response.Content.ReadAsStreamAsync();
         return await DeserializeJsonAsync<T>(responseStream);

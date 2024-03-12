@@ -24,7 +24,7 @@ public class PassengersController : ControllerBase
     /// <param name="dto">Create Passenger Dto.</param>
     [HttpPost]
     [ProducesResponseType(typeof(PassengerDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(CreatePassengerDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -43,7 +43,8 @@ public class PassengersController : ControllerBase
     /// <param name="dto">Update Passenger Dto.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(PassengerDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync([FromRoute]long id, CreatePassengerDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -60,7 +61,7 @@ public class PassengersController : ControllerBase
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(PassengerDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
         var result = await _manager.GetById(id);
