@@ -77,7 +77,19 @@ public class CountryManager : BaseManager<AviaSalesDb, Core.Entities.Country, lo
         var results = await Task.WhenAll(tasks).ConfigureAwait(false);
 
         var externals = results.Last().ToList();
+        
+        if (filters.page.HasValue || filters.perPage.HasValue)
+        {
+            var pager = new Pager(filters.page, filters.perPage);
+            var paged = externals
+                .Skip(pager.Page - 1 * pager.PerPage)
+                .Take(pager.PerPage)
+                .ToList();
+            
+            return MapToDto(paged);
+        }
 
+           
         return MapToDto(externals);
     }
 

@@ -26,7 +26,7 @@ public class AirportsController : ControllerBase
     /// <param name="dto">Create Airport Dto.</param>
     [HttpPost]
     [ProducesResponseType(typeof(AirportDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(CreateAirportDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -45,7 +45,8 @@ public class AirportsController : ControllerBase
     /// <param name="dto">Update Airport Dto.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AirportDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync([FromRoute]long id, CreateAirportDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -84,7 +85,7 @@ public class AirportsController : ControllerBase
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AirportDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
         var result = await _manager.GetById(id);

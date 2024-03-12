@@ -2,6 +2,7 @@
 using AviaSales.Admin.UseCases.Airline;
 using AviaSales.Admin.UseCases.Airport;
 using AviaSales.Admin.UseCases.Booking;
+using AviaSales.Admin.UseCases.Country;
 using AviaSales.Admin.UseCases.Flight;
 using AviaSales.Admin.UseCases.Passenger;
 using AviaSales.External.Services.Extensions;
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtension
     {
         // Adding Entity Managers.
         services.AddScoped<AirlineManager>()
+            .AddScoped<CountryManager>()
             .AddScoped<AirportManager>()
             .AddScoped<FlightManager>()
             .AddScoped<BookingManager>()

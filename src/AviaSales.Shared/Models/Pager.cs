@@ -12,8 +12,8 @@ public record Pager
     /// <param name="perPage">elements count per page.</param>
     public Pager(ushort? page, byte? perPage)
     {
-        Page = (ushort)Math.Max(page ?? 1, (ushort)1);
-        PerPage = (byte)Math.Max(perPage ?? 10, (byte)1);
+        Page = Math.Max(page ?? 1, (ushort)1);
+        PerPage = Math.Max(perPage ?? 10, (byte)10);
     }
 
 

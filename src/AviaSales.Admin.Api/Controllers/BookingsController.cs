@@ -24,7 +24,7 @@ public class BookingsController : ControllerBase
     /// <param name="validator">Create Booking validator</param>
     [HttpPost]
     [ProducesResponseType(typeof(BookingDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(CreateBookingDto dto,
         [FromServices] IValidator<CreateBookingDto> validator)
     {
@@ -46,7 +46,8 @@ public class BookingsController : ControllerBase
     /// <param name="validator">Update Booking validator.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(BookingDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync([FromRoute]long id, UpdateBookingDto dto,
         [FromServices]IValidator<UpdateBookingDto> validator)
     {
@@ -64,7 +65,7 @@ public class BookingsController : ControllerBase
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync([FromRoute]long id)
     {
         var result = await _manager.Delete(id);
@@ -86,7 +87,7 @@ public class BookingsController : ControllerBase
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(BookingDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
         var result = await _manager.GetById(id);

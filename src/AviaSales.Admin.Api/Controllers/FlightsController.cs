@@ -24,7 +24,7 @@ public class FlightsController : ControllerBase
     /// <param name="validator">Craete flight validator.</param>
     [HttpPost]
     [ProducesResponseType(typeof(FlightDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(CreateFlightDto dto,
         [FromServices]IValidator<CreateFlightDto> validator)
     {
@@ -45,7 +45,8 @@ public class FlightsController : ControllerBase
     /// <param name="validator">Update Flight validator.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(FlightDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync([FromRoute]long id, UpdateFlightDto dto,
         [FromServices]IValidator<UpdateFlightDto> validator)
     {
@@ -85,7 +86,7 @@ public class FlightsController : ControllerBase
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(FlightDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute]long id)
     {
         var result = await _manager.GetById(id);

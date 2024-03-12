@@ -33,5 +33,6 @@ public record CreateCountryDto(string Name, string Cioc, double? Area, string Ca
 /// <param name="Name">The name of the country to filter by.</param>
 /// <param name="Capital">The capital city of the country to filter by.</param>
 /// <param name="Code">The country code to filter by.</param>
-/// <param name="Pager">The pagination information for the query.</param>
-public record CountryFilters(string? Name, string? Capital, string? Code, Pager? Pager);
+/// <param name="Page">The page number..</param>
+/// <param name="PerPage">The elements count per page.</param>
+public record CountryFilters(string? Name, string? Capital, string? Code,ushort?Page,byte? PerPage);

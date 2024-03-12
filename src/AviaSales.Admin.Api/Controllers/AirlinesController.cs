@@ -26,7 +26,7 @@ public class AirlinesController : ControllerBase
     /// <param name="dto">Create Airline Dto.</param>
     [HttpPost]
     [ProducesResponseType(typeof(AirlineDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync(CreateAirlineDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -45,7 +45,8 @@ public class AirlinesController : ControllerBase
     /// <param name="dto">Update Airline Dto.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AirlineDto),200)]
-    [ProducesResponseType(typeof(ProblemDetails),400)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync([FromRoute]long id, CreateAirlineDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
@@ -89,7 +90,7 @@ public class AirlinesController : ControllerBase
     /// <param name="id"> Airline's id.</param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AirlineDto),200)]
-    [ProducesResponseType(typeof(NotFoundObjectResult),404)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync([FromRoute] long id)
     {
         var result = await _manager.GetById(id);
