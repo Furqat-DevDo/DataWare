@@ -30,7 +30,10 @@ public static class SerilogHelper
                 .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
                 .Destructure.ToMaximumDepth(9)
                 .WriteTo.Console()
-                .WriteTo.Debug();
+                .WriteTo.Debug()
+                .WriteTo.File("./Logs/log.txt", 
+                    rollingInterval: RollingInterval.Day,
+                    rollOnFileSizeLimit: true);
 
             if (tgLogOptions != default && !string.IsNullOrWhiteSpace(tgLogOptions.Token)
                 && !string.IsNullOrWhiteSpace(tgLogOptions.ChatId))

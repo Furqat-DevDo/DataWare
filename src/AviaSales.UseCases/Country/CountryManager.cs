@@ -78,9 +78,9 @@ public class CountryManager : BaseManager<AviaSalesDb, Core.Entities.Country, lo
 
         var externals = results.Last().ToList();
         
-        if (filters.page.HasValue || filters.perPage.HasValue)
+        if (filters.Page.HasValue || filters.PerPage.HasValue)
         {
-            var pager = new Pager(filters.page, filters.perPage);
+            var pager = new Pager(filters.Page, filters.PerPage);
             var paged = externals
                 .Skip(pager.Page - 1 * pager.PerPage)
                 .Take(pager.PerPage)
@@ -138,8 +138,8 @@ public class CountryManager : BaseManager<AviaSalesDb, Core.Entities.Country, lo
                                      c.Cca3.ToLower() == filters.Code.ToLower() ||
                                      c.Cioc.ToLower() == filters.Code.ToLower());
 
-        if (filters.page.HasValue || filters.perPage.HasValue)
-            query = query.OrderBy(c => c.CreatedAt).Paged(new Pager(filters.page, filters.perPage));
+        if (filters.Page.HasValue || filters.PerPage.HasValue)
+            query = query.OrderBy(c => c.CreatedAt).Paged(new Pager(filters.Page, filters.PerPage));
 
         return await query
             .Select(EntityToDto)
