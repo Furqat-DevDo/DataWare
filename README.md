@@ -1,26 +1,37 @@
-# Flight Search API
 
-Описание проекта
-Этот проект представляет собой API для агрегации информации о доступных авиаперелетах из различных источников. API предоставляет возможность поиска перелетов, фильтрации, сортировки результатов, бронирования рейсов, кэширования запросов и логирования для последующего анализа.
+AviaSales Project Overview
+Introduction
+The AviaSales project is a comprehensive solution divided into two API projects: AviaSales.Admin.Api and AviaSales.Api. These projects leverage various technologies such as Fluent Validation, Serilog, EF Core, EF Core PostgreSQL, and Swagger OpenAPI. The project encompasses functionality related to airlines, airports, passengers, bookings, countries, and flights.
 
-## Технологии
+AviaSales.Admin.Api
+Entities
+Airline: Perform CRUD operations on airline entities.
+Airport: Manage CRUD operations for airport entities.
+Passenger: Facilitates CRUD operations on passenger entities.
+Booking: Provides CRUD functionalities for booking entities.
+Country: Supports CRUD operations on country entities.
+Flight: Enables CRUD operations on flight entities.
+AviaSales.Api
+Functionality
+Flights:
 
-- Язык программирования: C# (.NET 6.0 и выше)
-- Принципы: RESTful API
-- Библиотеки: ASP.NET.Core,Serilog,FluentValidation,Microsoft.EntityFramework.Core
+Retrieve flight information.
+Utilizes external resources for enhanced data.
+Booking and Passenger:
 
-## Установка и настройка
+Create and update booking entities.
+Manage passenger entities.
+Airline and Airport:
 
-Убедитесь, что у вас установлен .NET 6.0 (или более новая версия).
-Клонируйте репозиторий на свой компьютер.
-Откройте проект в вашей среде разработки (например, Visual Studio).
-Настройте конфигурацию и подключение к вашим вымышленным источникам данных в файле appsettings.json.
+Retrieve information about airline and airport entities.
+Technologies Used
+Fluent Validation: Ensures robust validation for input data.
+Serilog: Facilitates structured logging for enhanced debugging and monitoring.
+EF Core: Serves as the Entity Framework Core for data access.
+EF Core PostgreSQL: Utilizes PostgreSQL as the database for persistent storage.
+Swagger OpenAPI: Empowers API documentation and exploration.
+External Resources
+The Flights and Country services seamlessly integrate external resources to enrich data and enhance the overall user experience.
 
-**Запуск проекта :**
-Соберите и запустите проект средствами вашей среды разработки или используйте команду dotnet run в терминале.
-API будет доступно по адресу  (или другому, если вы измените порт в конфигурации).
-
-**Документация API :**
-Документация API предоставлена в формате OpenAPI и доступна по адресу /swagger. Вы можете использовать Swagger для ознакомления с доступными методами, параметрами запросов и примерами ответов.
-
-## Примеры использования:
+Conclusion
+AviaSales is a versatile project that provides extensive functionality for managing various entities related to the aviation industry. With a robust tech stack and seamless integration with external resources, it offers a comprehensive solution for airline, airport, and flight-related operations.
