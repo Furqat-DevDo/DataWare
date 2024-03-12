@@ -10,6 +10,14 @@ namespace AviaSales.Persistence;
 public class AviaSalesDb : DbContext
 {
     /// <summary>
+    /// For test projects.
+    /// </summary>
+    public AviaSalesDb() : base()
+    {
+        
+    }
+    
+    /// <summary>
     /// Initializes a new instance of the <see cref="AviaSalesDb"/> class.
     /// </summary>
     /// <param name="options">The options to be used by the context.</param>
