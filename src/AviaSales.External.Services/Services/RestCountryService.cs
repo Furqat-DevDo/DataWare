@@ -33,16 +33,16 @@ public class RestCountryService : ICountryService
     /// Performs an HTTP request for a list of countries based on the provided URL.
     /// </summary>
     /// <param name="url">The URL for the countries request.</param>
-    /// <returns>The deserialized list of <see cref="Country"/> objects.</returns>
-    private async Task<IEnumerable<Country>> PerformCountryRequestAsync(string url)
+    /// <returns>The deserialized list of <see cref="RestCountry"/> objects.</returns>
+    private async Task<IEnumerable<RestCountry>> PerformCountryRequestAsync(string url)
     {
         try
         {
             var client = _factory.CreateClient(nameof(RestCountryService));
             
-            var result = await client.GetJsonAsync<IEnumerable<Country>>(url);
+            var result = await client.GetJsonAsync<IEnumerable<RestCountry>>(url);
             
-            return result ?? Enumerable.Empty<Country>();
+            return result ?? Enumerable.Empty<RestCountry>();
         }
         catch (HttpRequestException ex)
         {
@@ -54,8 +54,8 @@ public class RestCountryService : ICountryService
     /// <summary>
     /// Retrieves information about all countries from the Rest Countries API.
     /// </summary>
-    /// <returns>An enumerable collection of <see cref="Country"/> objects.</returns>
-    public async Task<IEnumerable<Country>> GetAll()
+    /// <returns>An enumerable collection of <see cref="RestCountry"/> objects.</returns>
+    public async Task<IEnumerable<RestCountry>> GetAll()
     {
         var url = $"{_options.Value.ApiVersion}/all";
         return await PerformCountryRequestAsync(url);
@@ -65,8 +65,8 @@ public class RestCountryService : ICountryService
     /// Retrieves information about a country by its name from the Rest Countries API.
     /// </summary>
     /// <param name="name">The name of the country.</param>
-    /// <returns>The <see cref="Country"/> object representing the specified country.</returns>
-    public async Task<IEnumerable<Country>> GetByName(string name)
+    /// <returns>The <see cref="RestCountry"/> object representing the specified country.</returns>
+    public async Task<IEnumerable<RestCountry>> GetByName(string name)
     {
         var url =$"{_options.Value.ApiVersion}/name/{name}";
         return await PerformCountryRequestAsync(url);
@@ -76,8 +76,8 @@ public class RestCountryService : ICountryService
     /// Retrieves information about a country by its alpha code from the Rest Countries API.
     /// </summary>
     /// <param name="code">The alpha code of the country.</param>
-    /// <returns>The <see cref="Country"/> object representing the specified country.</returns>
-    public async Task<IEnumerable<Country>> GetByCode(string code)
+    /// <returns>The <see cref="RestCountry"/> object representing the specified country.</returns>
+    public async Task<IEnumerable<RestCountry>> GetByCode(string code)
     {
         var url = $"{_options.Value.ApiVersion}/alpha/{code}";
         return await PerformCountryRequestAsync(url);
@@ -87,8 +87,8 @@ public class RestCountryService : ICountryService
     /// Retrieves information about a country by its capital from the Rest Countries API.
     /// </summary>
     /// <param name="capital">The capital of the country.</param>
-    /// <returns>The <see cref="Country"/> object representing the specified country.</returns>
-    public async Task<IEnumerable<Country>> GetByCapital(string capital)
+    /// <returns>The <see cref="RestCountry"/> object representing the specified country.</returns>
+    public async Task<IEnumerable<RestCountry>> GetByCapital(string capital)
     {
         var url = $"{_options.Value.ApiVersion}/capital/{capital}";
         return await PerformCountryRequestAsync(url);

@@ -39,11 +39,16 @@ public class Airport : Entity<long>
     /// Gets or sets the city where the airport is located.
     /// </summary>
     public string City { get; private set; }
-
+    
+    /// <summary>
+    /// Country id.
+    /// </summary>
+    public long CountryId { get; set; }
+    
     /// <summary>
     /// Gets or sets the country where the airport is situated.
     /// </summary>
-    public string Country { get; private set; }
+    public Country? Country { get; private set; }
     
     /// <summary>
     /// Gets or sets the location details of the airport.
@@ -64,12 +69,12 @@ public class Airport : Entity<long>
     /// <param name="type">The type of the airport (e.g., international, domestic).</param>
     /// <param name="label">A label or name for the airport.</param>
     /// <param name="city">The city where the airport is located.</param>
-    /// <param name="country">The country where the airport is located.</param>
+    /// <param name="countryId">The country where the airport is located.</param>
     /// <param name="details">Additional details about the airport.</param>
     /// <param name="location">The geographical location of the airport.</param>
     /// <returns>A new instance of the Airport class.</returns>
     public static Airport Create(string code, string tz, string timeZone, EAirportType type, string label, string city, 
-        string country, AirportDetails details, Location location)
+        long countryId, AirportDetails details, Location location)
     {
         var airport = new Airport
         {
@@ -79,7 +84,7 @@ public class Airport : Entity<long>
             Type = type,
             Label = label,
             City = city,
-            Country = country,
+            CountryId = countryId,
             Details = details,
             Location = location,
             CreatedAt = DateTime.UtcNow
@@ -97,11 +102,11 @@ public class Airport : Entity<long>
     /// <param name="type">The updated type of the airport (e.g., international, domestic).</param>
     /// <param name="label">The updated label or name for the airport.</param>
     /// <param name="city">The updated city where the airport is located.</param>
-    /// <param name="country">The updated country where the airport is located.</param>
+    /// <param name="countryId">The updated country where the airport is located.</param>
     /// <param name="details">The updated additional details about the airport.</param>
     /// <param name="location">The updated geographical location of the airport.</param>
     public void Update(string code, string tz, string timeZone, EAirportType type, string label, string city, 
-        string country, AirportDetails details, Location location)
+        long countryId, AirportDetails details, Location location)
     {
         Code = code;
         TZ = tz;
@@ -109,7 +114,7 @@ public class Airport : Entity<long>
         Type = type;
         Label = label;
         City = city;
-        Country = country;
+        CountryId = countryId;
         Details = details;
         Location = location;
         UpdatedAt = DateTime.UtcNow;

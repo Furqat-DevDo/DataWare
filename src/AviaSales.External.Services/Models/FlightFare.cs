@@ -41,7 +41,7 @@ namespace AviaSales.External.Services.Models;
         public string Label { get; set; }
 
         [JsonPropertyName("country")]
-        public Country Country { get; set; }
+        public RestCountry RestCountry { get; set; }
 
         [JsonPropertyName("city")]
         public string City { get; set; }
@@ -119,7 +119,7 @@ namespace AviaSales.External.Services.Models;
         public string Label { get; set; }
 
         [JsonPropertyName("country")]
-        public Country Country { get; set; }
+        public RestCountry RestCountry { get; set; }
 
         [JsonPropertyName("city")]
         public string City { get; set; }

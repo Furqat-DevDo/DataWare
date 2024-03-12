@@ -38,10 +38,6 @@ public class AirportConfiguration : IEntityTypeConfiguration<Airport>
         // Configures the city where the airport is located.
         builder.Property(a => a.City)
             .IsRequired();
-
-        // Configures the country where the airport is situated.
-        builder.Property(a => a.Country)
-            .IsRequired();
         
         // Configuring owned types.
         builder.OwnsOne(a => a.Details, d =>

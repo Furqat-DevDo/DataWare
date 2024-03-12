@@ -11,11 +11,11 @@ namespace AviaSales.Admin.UseCases.Airport;
 /// <param name="Type">The type of the airport (e.g., international, domestic).</param>
 /// <param name="Label">The label or name associated with the airport.</param>
 /// <param name="City">The city where the airport is located.</param>
-/// <param name="Country">The country where the airport is located.</param>
+/// <param name="CountryId">The country where the airport is located.</param>
 /// <param name="Details">Additional details about the airport.</param>
 /// <param name="Location">The geographical location (latitude and longitude) of the airport.</param>
 public record CreateAirportDto(string Code, string TZ, string TimeZone, EAirportType Type, string Label, string City,
-    string Country, AirportDetailsDto Details, LocationDto Location);
+    long CountryId, AirportDetailsDto Details, LocationDto Location);
 
 /// <summary>
 /// Data transfer object for airport details.
@@ -43,11 +43,9 @@ public record LocationDto(double Longtitude, double Latitude, int Elevation);
 /// <param name="Type">The type of the airport (e.g., international, domestic).</param>
 /// <param name="Label">The label or name associated with the airport.</param>
 /// <param name="City">The city where the airport is located.</param>
-/// <param name="Country">The country where the airport is located.</param>
+/// <param name="CountryId">The country where the airport is located.</param>
 /// <param name="Details">Additional details about the airport.</param>
 /// <param name="Location">The geographical location (latitude and longitude) of the airport.</param>
 public record AirportDto(long Id, string Code, string TZ, string TimeZone, EAirportType Type, string Label, string City,
-    string Country, AirportDetailsDto Details, LocationDto Location);
+    long CountryId, AirportDetailsDto Details, LocationDto Location);
 
-
-public record UpdateAirportDto();

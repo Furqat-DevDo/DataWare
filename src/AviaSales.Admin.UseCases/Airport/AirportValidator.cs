@@ -13,7 +13,7 @@ public class AirportValidator : AbstractValidator<CreateAirportDto>
         RuleFor(a => a.TZ).NotEmpty().NotNull();
         RuleFor(a => a.TimeZone).NotEmpty().NotNull();
         RuleFor(a => a.City).NotEmpty().NotNull();
-        RuleFor(a => a.Country).NotEmpty().NotNull();
+        RuleFor(a => a.CountryId).GreaterThan(0);
         RuleFor(a => a.Label).NotEmpty().NotNull();
         
         RuleFor(a => a.Location).NotNull();

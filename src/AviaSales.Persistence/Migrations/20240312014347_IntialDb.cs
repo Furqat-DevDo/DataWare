@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AviaSales.Persistence.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class IntialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,28 @@ namespace AviaSales.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Cioc = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
+                    Cca2 = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
+                    Ccn3 = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
+                    Cca3 = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
+                    Area = table.Column<double>(type: "double precision", nullable: true),
+                    Capital = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Airports",
                 columns: table => new
                 {
@@ -40,7 +62,7 @@ namespace AviaSales.Persistence.Migrations
                     Type = table.Column<int>(type: "integer", nullable: false),
                     Label = table.Column<string>(type: "text", nullable: false),
                     City = table.Column<string>(type: "text", nullable: false),
-                    Country = table.Column<string>(type: "text", nullable: false),
+                    CountryId = table.Column<long>(type: "bigint", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longtitude = table.Column<double>(type: "double precision", nullable: false),
                     Elevation = table.Column<int>(type: "integer", nullable: false),
@@ -54,6 +76,12 @@ namespace AviaSales.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Airports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Airports_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,6 +98,8 @@ namespace AviaSales.Persistence.Migrations
                     PassengerCount = table.Column<int>(type: "integer", nullable: false),
                     IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
                     HasFreeBagage = table.Column<bool>(type: "boolean", nullable: false),
+                    Details_TransactionsCount = table.Column<int>(type: "integer", nullable: false),
+                    Details_HasTransaction = table.Column<bool>(type: "boolean", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -189,6 +219,11 @@ namespace AviaSales.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Airports_CountryId",
+                table: "Airports",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_FlightId_PassengerId",
                 table: "Bookings",
                 columns: new[] { "FlightId", "PassengerId" },
@@ -246,6 +281,9 @@ namespace AviaSales.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Airports");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
         }
     }
 }

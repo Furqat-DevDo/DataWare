@@ -35,14 +35,14 @@ public class CountriesController : ControllerBase
     /// <returns>An <see cref="IActionResult"/> containing the paginated list of countries.</returns>
     [HttpGet]
     [ResponseCache(Duration = 1200)]
-    [ProducesResponseType(typeof(IEnumerable<Country>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<RestCountry>), 200)]
     public async Task<IActionResult> GetCountries(ushort page, byte perPage)
     {
         var key = "countries";
         page = (ushort)(page <= 0 ? 1 : page);
         perPage = (byte)(perPage <= 0 ? 10 : perPage);
         
-        _cache.TryGetValue<IEnumerable<Country>>(key, out var response);
+        _cache.TryGetValue<IEnumerable<RestCountry>>(key, out var response);
 
         if (response is null)
         {
@@ -62,12 +62,12 @@ public class CountriesController : ControllerBase
     /// <param name="name">The name of the country.</param>
     /// <returns>An <see cref="IActionResult"/> containing the list of countries matching the provided name.</returns>
     [HttpGet("byname")]
-    [ProducesResponseType(typeof(IEnumerable<Country>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<RestCountry>), 200)]
     [ResponseCache(Duration = 1200)]
     public async Task<IActionResult> GetByName(string name)
     {
         var key = "byName";
-        _cache.TryGetValue<IEnumerable<Country>>(key, out var response);
+        _cache.TryGetValue<IEnumerable<RestCountry>>(key, out var response);
 
         if (response is null)
         {
@@ -86,12 +86,12 @@ public class CountriesController : ControllerBase
     /// <param name="code">The alpha code of the country.</param>
     /// <returns>An <see cref="IActionResult"/> containing the list of countries matching the provided alpha code.</returns>
     [HttpGet("bycode")]
-    [ProducesResponseType(typeof(IEnumerable<Country>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<RestCountry>), 200)]
     [ResponseCache(Duration = 1200)]
     public async Task<IActionResult> GetByCode(string code)
     {
         var key = "byCode";
-        _cache.TryGetValue<IEnumerable<Country>>(key, out var response);
+        _cache.TryGetValue<IEnumerable<RestCountry>>(key, out var response);
 
         if (response is null)
         {
@@ -110,12 +110,12 @@ public class CountriesController : ControllerBase
     /// <param name="capital">The capital of the country.</param>
     /// <returns>An <see cref="IActionResult"/> containing the list of countries matching the provided capital.</returns>
     [HttpGet("bycapital")]
-    [ProducesResponseType(typeof(IEnumerable<Country>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<RestCountry>), 200)]
     [ResponseCache(Duration = 1200)]
     public async Task<IActionResult> GetByCapital(string capital)
     {
         var key = "byCapital";
-        _cache.TryGetValue<IEnumerable<Country>>(key, out var response);
+        _cache.TryGetValue<IEnumerable<RestCountry>>(key, out var response);
 
         if (response is null)
         {

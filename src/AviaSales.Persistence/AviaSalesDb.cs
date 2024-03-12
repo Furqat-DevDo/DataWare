@@ -20,6 +20,7 @@ public class AviaSalesDb : DbContext
     public DbSet<Flight> Flights { get; set; }
     public DbSet<Passenger> Passengers { get; set; }
     public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Country> Countries { get; set; }
 
     /// <summary>
     /// Overrides the base method to configure the database model using entity configurations from the current assembly.

@@ -36,7 +36,7 @@ public class AirportManager : BaseManager<AviaSalesDb, Core.Entities.Airport, lo
             ai.Type,
             ai.Label,
             ai.City,
-            ai.Country,
+            ai.CountryId,
             new AirportDetailsDto(
                 ai.Details.IataCode,
                 ai.Details.IcaoCode,
@@ -59,7 +59,7 @@ public class AirportManager : BaseManager<AviaSalesDb, Core.Entities.Airport, lo
             dto.Type,
             dto.Label,
             dto.City,
-            dto.Country,
+            dto.CountryId,
             new AirportDetails
             {
                 IataCode = dto.Details.IataCode,
@@ -96,7 +96,7 @@ public class AirportManager : BaseManager<AviaSalesDb, Core.Entities.Airport, lo
             dto.Type,
             dto.Label,
             dto.City,
-            dto.Country,
+            dto.CountryId,
             new AirportDetails
             {
                 IataCode = dto.Details.IataCode,

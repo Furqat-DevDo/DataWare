@@ -4,6 +4,7 @@ using AviaSales.Admin.UseCases.Airport;
 using AviaSales.Admin.UseCases.Booking;
 using AviaSales.Admin.UseCases.Flight;
 using AviaSales.Admin.UseCases.Passenger;
+using AviaSales.External.Services.Extensions;
 using AviaSales.External.Services.Interfaces;
 using AviaSales.External.Services.Services;
 using AviaSales.Persistence;
@@ -33,6 +34,7 @@ public static class ServiceCollectionExtension
             .AddScoped<PassengerManager>();
 
         services.AddScoped<IFakeService, FakeService>();
+        services.AddCountryService(configuration);
     }
 
     /// <summary>

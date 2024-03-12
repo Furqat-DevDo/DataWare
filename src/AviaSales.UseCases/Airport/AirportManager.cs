@@ -37,7 +37,7 @@ public class AirportManager : BaseManager<AviaSalesDb, Core.Entities.Airport, lo
             ai.Type,
             ai.Label,
             ai.City,
-            ai.Country,
+            ai.CountryId,
             new AirportDetailsDto(
                 ai.Details.IataCode,
                 ai.Details.IcaoCode,
@@ -63,8 +63,8 @@ public class AirportManager : BaseManager<AviaSalesDb, Core.Entities.Airport, lo
         if (!string.IsNullOrEmpty(filter.Code))
             query = query.Where(a => a.Code.ToLower() == filter.Code.ToLower());
         
-        if (!string.IsNullOrEmpty(filter.Country))
-            query = query.Where(a => a.Country.ToLower().Contains(filter.Country.ToLower()));
+        if (filter.CountryId.HasValue)
+            query = query.Where(a => a.CountryId == filter.CountryId);
         
         if (!string.IsNullOrEmpty(filter.City))
             query = query.Where(a => a.City.ToLower().Contains(filter.City.ToLower()));

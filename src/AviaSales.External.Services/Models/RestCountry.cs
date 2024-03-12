@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 namespace AviaSales.External.Services.Models;
 
-public class Country
+public class RestCountry
 {
     [JsonPropertyName("name")]
     public Name Name { get; set; }

@@ -81,9 +81,8 @@ namespace AviaSales.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -110,6 +109,8 @@ namespace AviaSales.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Airports");
                 });
@@ -155,6 +156,59 @@ namespace AviaSales.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("AviaSales.Core.Entities.Country", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<double?>("Area")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Capital")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Cca2")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)");
+
+                    b.Property<string>("Cca3")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<string>("Ccn3")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<string>("Cioc")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Flight", b =>
@@ -251,6 +305,12 @@ namespace AviaSales.Persistence.Migrations
 
             modelBuilder.Entity("AviaSales.Core.Entities.Airport", b =>
                 {
+                    b.HasOne("AviaSales.Core.Entities.Country", "Country")
+                        .WithMany("Airports")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("AviaSales.Core.Entities.AirportDetails", "Details", b1 =>
                         {
                             b1.Property<long>("AirportId")
@@ -306,6 +366,8 @@ namespace AviaSales.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("AirportId");
                         });
+
+                    b.Navigation("Country");
 
                     b.Navigation("Details")
                         .IsRequired();
@@ -438,6 +500,11 @@ namespace AviaSales.Persistence.Migrations
             modelBuilder.Entity("AviaSales.Core.Entities.Airline", b =>
                 {
                     b.Navigation("Flights");
+                });
+
+            modelBuilder.Entity("AviaSales.Core.Entities.Country", b =>
+                {
+                    b.Navigation("Airports");
                 });
 
             modelBuilder.Entity("AviaSales.Core.Entities.Flight", b =>
