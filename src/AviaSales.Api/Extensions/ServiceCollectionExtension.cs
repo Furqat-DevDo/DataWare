@@ -36,7 +36,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IFakeService, FakeService>();
         
         services.AddCountryService(configuration);
-        services.AddFlightFareService(configuration);
+        services.AddTimeTableService(configuration);
         
         services.AddDistributedMemoryCache();
     }

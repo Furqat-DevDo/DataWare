@@ -11,14 +11,19 @@ public class Airline : Entity<long>
     private Airline() { }
 
     /// <summary>
-    /// Gets or sets the IATA code of the airline.
+    /// Gets or sets the International Air Transport Association (IATA) code of the airline.
+    /// The IATA code is a two-character alphanumeric code assigned to airlines for easy identification.
+    /// Example: "AA" for American Airlines.
     /// </summary>
     public string IataCode { get; private set; }
-    
+
     /// <summary>
-    /// Gets or sets the ICAO code of the airline.
+    /// Gets or sets the International Civil Aviation Organization (ICAO) code of the airline.
+    /// The ICAO code is a four-character alphanumeric code assigned to airlines by the International Civil Aviation Organization.
+    /// Example: "AAL" for American Airlines.
     /// </summary>
     public string IcaoCode { get; private set; }
+
 
     /// <summary>
     /// Gets or sets the name of the airline.

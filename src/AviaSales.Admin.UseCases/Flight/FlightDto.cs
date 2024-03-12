@@ -13,7 +13,8 @@ namespace AviaSales.Admin.UseCases.Flight;
 /// <param name="ArrrivalTime">The arrival time of the flight.</param>
 /// <param name="Details">The additional information about flight.</param>
 /// <param name="Prices">The list of prices associated with the flight.</param>
-public record FlightDto(long Id, long AirlineId, long DepartureAirportId, DateTime DepartueTime, long ArrivalAirportId, 
+/// <param name="ExternalId">The external id of the flight.</param>
+public record FlightDto(long Id,string?ExternalId, long AirlineId, long DepartureAirportId, DateTime DepartueTime, long ArrivalAirportId, 
     DateTime ArrrivalTime, FlightDetailDto Details, IEnumerable<PriceDto> Prices);
 
 /// <summary>
@@ -26,7 +27,8 @@ public record FlightDto(long Id, long AirlineId, long DepartureAirportId, DateTi
 /// <param name="ArrivalTime">The arrival time of the flight.</param>
 /// <param name="Prices">The list of prices associated with the flight.</param>
 /// <param name="Details">The flight additional details.</param>
-public record CreateFlightDto(long AirlineId, long DepartureAirportId, DateTime DepartureTime, long ArrivalAirportId, 
+/// <param name="ExternalId">The flight's external id.</param>
+public record CreateFlightDto(long AirlineId,string?ExternalId, long DepartureAirportId, DateTime DepartureTime, long ArrivalAirportId, 
     DateTime ArrivalTime, FlightDetailDto Details, IEnumerable<PriceDto> Prices);
 
 /// <summary>
@@ -45,7 +47,8 @@ public record PriceDto(decimal Amount, EPriceType Type);
 /// <param name="ArrivalTime">The updated arrival time of the flight.</param>
 /// <param name="Prices">A collection of price details associated with the flight.</param>
 /// <param name="Details">The additional details about flight.</param>
-public record UpdateFlightDto(long AirlineId, DateTime DepartureTime, DateTime ArrivalTime, FlightDetailDto Details, 
+/// <param name="ExternalId">The flights external id.</param>
+public record UpdateFlightDto(long AirlineId,string?ExternalId, DateTime DepartureTime, DateTime ArrivalTime, FlightDetailDto Details, 
     IEnumerable<PriceDto> Prices);
 
 /// <summary>

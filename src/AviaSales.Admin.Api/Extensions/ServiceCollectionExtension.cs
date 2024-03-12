@@ -35,6 +35,7 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<IFakeService, FakeService>();
         services.AddCountryService(configuration);
+        services.AddTimeTableService(configuration);
     }
 
     /// <summary>

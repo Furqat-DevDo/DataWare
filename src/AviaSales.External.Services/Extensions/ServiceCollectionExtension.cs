@@ -42,15 +42,20 @@ public static class ServiceCollectionExtension
     /// <param name="services">The IServiceCollection to configure.</param>
     /// <param name="configuration">The configuration containing FlightFareOptions.</param>
     /// <exception cref="ArgumentException">Thrown when an invalid base URL is specified in the configuration.</exception>
-    public static void AddFlightFareService(this IServiceCollection services, IConfiguration configuration)
+    public static void AddTimeTableService(this IServiceCollection services, IConfiguration configuration)
     {
         
-        services.Configure<FlightFareOptions>(configuration.GetSection(nameof(FlightFareOptions)));
+        services.Configure<TimeTableOptions>(configuration.GetSection(nameof(TimeTableOptions)));
         services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
         
-        var baseAddress = configuration.GetSection("FlightFareOptions:URL").Value
-                          ?? throw new ArgumentException(nameof(FlightFareOptions));
-
+        var baseAddress = configuration.GetSection("TimeTableOptions:URL").Value
+                          ?? throw new ArgumentException(nameof(TimeTableOptions));
+        
+        var apiKey = configuration.GetSection("TimeTableOptions:ApiKey").Value
+                     ?? throw new ArgumentException(nameof(TimeTableOptions));
+        
+        var apiHost = configuration.GetSection("TimeTableOptions:ApiHost").Value
+                     ?? throw new ArgumentException(nameof(TimeTableOptions));
         
         if (!Uri.TryCreate(baseAddress, UriKind.Absolute, out var uri))
         {
@@ -58,13 +63,15 @@ public static class ServiceCollectionExtension
         }
 
         
-        services.AddTransient<IFlightFareService,FlightFareService>();
+        services.AddTransient<ITimeTableService,TimeTableService>();
 
        
-        services.AddHttpClient<FlightFareService>(
-            nameof(FlightFareService), client =>
+        services.AddHttpClient<TimeTableService>(
+            nameof(TimeTableService), client =>
             {
                 client.BaseAddress = uri;
+                client.DefaultRequestHeaders.Add("X-RapidAPI-Key", apiKey);
+                client.DefaultRequestHeaders.Add("X-RapidAPI-Host", apiHost);
             });
     }
 }

@@ -23,9 +23,13 @@ public static class HttpClientExt
         await using var responseStream = await response.Content.ReadAsStreamAsync();
         return await DeserializeJsonAsync<T>(responseStream);
     }
-
-    // Include your existing DeserializeJsonAsync method here
-
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="responseStream"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     private static async Task<T?> DeserializeJsonAsync<T>(Stream responseStream)
     {
         try
@@ -34,7 +38,7 @@ public static class HttpClientExt
         }
         catch (JsonException ex)
         {
-            Log.Error($"Error deserializing JSON content: {ex.Message}");
+            Log.Error(ex,"Error deserializing JSON content");
             return default!;
         }
     }

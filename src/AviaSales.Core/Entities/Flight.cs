@@ -17,6 +17,11 @@ public class Flight : Entity<long>
     /// Gets or sets the ID of the airline associated with the flight.
     /// </summary>
     public long AirlineId { get; private set; }
+    
+    /// <summary>
+    /// If flight from external source this field will have value.
+    /// </summary>
+    public string? ExternalId { get; set; }
 
     /// <summary>
     /// Gets or sets the reference to the associated airline entity.
@@ -72,17 +77,19 @@ public class Flight : Entity<long>
     /// Creates a new flight entity with the specified details.
     /// </summary>
     /// <param name="airlineId">The ID of the airline associated with the flight.</param>
+    /// <param name="externalId">External id of flight</param>
     /// <param name="departureAirportId">The ID of the departure airport for the flight.</param>
     /// <param name="departueTime">The departure time of the flight.</param>
     /// <param name="arrivalAirportId">The ID of the arrival airport for the flight.</param>
     /// <param name="arrrivalTime">The arrival time of the flight.</param>
     /// <param name="details">Additional information about Flight.</param>
     /// <returns>A new instance of the <see cref="Flight"/> class.</returns>
-    public static Flight Create(long airlineId, long departureAirportId, DateTime departueTime, long arrivalAirportId, 
+    public static Flight Create(long airlineId,string? externalId, long departureAirportId, DateTime departueTime, long arrivalAirportId, 
         DateTime arrrivalTime,FlightDetail details)
     {
         var flight = new Flight
         {
+            ExternalId = externalId,
             AirlineId = airlineId,
             DepartureAirportId = departureAirportId,
             DepartureTime = departueTime,
@@ -108,11 +115,13 @@ public class Flight : Entity<long>
     /// Updates flight information, including the airline, departure time, arrival time, and passenger.
     /// </summary>
     /// <param name="airlineId">The identifier of the associated airline.</param>
+    /// <param name="externalId">Flights external id.</param>
     /// <param name="departureTime">The updated departure time of the flight.</param>
     /// <param name="arrivalTime">The updated arrival time of the flight.</param>
     /// <param name="details">Additional informations about Flight.</param>
-    public void Update(long airlineId, DateTime departureTime, DateTime arrivalTime,FlightDetail details)
+    public void Update(long airlineId,string?externalId, DateTime departureTime, DateTime arrivalTime,FlightDetail details)
     {
+        ExternalId = externalId;
         AirlineId = airlineId;
         DepartureTime = departureTime;
         ArrivalTime = arrivalTime;

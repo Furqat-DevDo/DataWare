@@ -91,6 +91,7 @@ namespace AviaSales.Persistence.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AirlineId = table.Column<long>(type: "bigint", nullable: false),
+                    ExternalId = table.Column<string>(type: "text", nullable: true),
                     DepartureAirportId = table.Column<long>(type: "bigint", nullable: false),
                     DepartureTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ArrivalAirportId = table.Column<long>(type: "bigint", nullable: false),

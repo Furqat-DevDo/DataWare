@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AviaSales.Persistence.Migrations
 {
     [DbContext(typeof(AviaSalesDb))]
-    [Migration("20240312014347_IntialDb")]
+    [Migration("20240312084448_IntialDb")]
     partial class IntialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,6 +238,9 @@ namespace AviaSales.Persistence.Migrations
 
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ExternalId")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");

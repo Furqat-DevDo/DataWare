@@ -1,4 +1,5 @@
 ﻿using AviaSales.Core.Enums;
+using AviaSales.External.Services.Models;
 
 namespace AviaSales.UseCases.Flight;
 
@@ -13,8 +14,16 @@ namespace AviaSales.UseCases.Flight;
 /// <param name="ArrrivalTime">The arrival time of the flight.</param>
 /// <param name="Details">The additional information about flight.</param>
 /// <param name="Prices">The list of prices associated with the flight.</param>
-public record FlightDto(long Id, long AirlineId, long DepartureAirportId, DateTime DepartueTime, long ArrivalAirportId, 
-    DateTime ArrrivalTime, FlightDetailDto Details, IEnumerable<PriceDto> Prices);
+/// <param name="ExternalId"></param>
+public record FlightDto(long Id, 
+    string? ExternalId, 
+    long AirlineId, 
+    long DepartureAirportId, 
+    DateTime DepartueTime,
+    long ArrivalAirportId, 
+    DateTime ArrrivalTime, 
+    FlightDetailDto Details, 
+    IEnumerable<PriceDto> Prices);
 
 /// <summary>
 /// Data transfer object for representing price information.
@@ -29,15 +38,27 @@ public record PriceDto(decimal Amount, EPriceType Type);
 /// <param name="PassengerCount">Max passenger count in flight.</param>
 /// <param name="IsAvailable">Is Flight Available now.</param>
 /// <param name="HasFreeBagage">Has Flight Free Bagage.</param>
-public record FlightDetailDto(int PassengerCount,bool IsAvailable,bool HasFreeBagage);
+public record FlightDetailDto(int PassengerCount,
+    bool IsAvailable,
+    bool HasFreeBagage,
+    int TransactionCount,
+    bool HasTransaction);
 
 /// <summary>
 /// Represents filter criteria for retrieving flight information.
 /// </summary>
-/// <param name="From">The starting date and time for the flight information.</param>
-/// <param name="To">The ending date and time for the flight information.</param>
-/// <param name="Airline">The name of the airline for which flight information is filtered.</param>
+/// <param name="DateFrom">The starting date and time for the flight information.</param>
+/// <param name="AirlineIcao">The Icao code of Airline Company.</param>
 /// <param name="Transactions">The number of transactions associated with the flight.</param>
 /// <param name="PriceFrom">The minimal Price of flights.</param>
 /// <param name="PriceTo">The Maximal price of flights.</param>
-public record FlightFilters(DateTime? From,DateTime? To,string? Airline,int? Transactions,decimal? PriceFrom,decimal? PriceTo);
+/// <param name="From">IATA Code of the departure country .</param>
+/// <param name="To">IATA Code of the arrival country .</param>
+public record FlightFilters(
+    DateTime? DateFrom,
+    string? From,
+    string? To, 
+    string? AirlineIcao,
+    int? Transactions,
+    decimal? PriceFrom,
+    decimal? PriceTo);

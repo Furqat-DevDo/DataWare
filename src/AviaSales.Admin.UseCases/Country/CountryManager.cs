@@ -5,7 +5,6 @@ using AviaSales.Shared.Managers;
 using AviaSales.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace AviaSales.Admin.UseCases.Country;
 

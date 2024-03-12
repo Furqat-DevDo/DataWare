@@ -30,6 +30,7 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
     protected override Expression<Func<Core.Entities.Flight, FlightDto>> EntityToDto =>
         f => new FlightDto(
             f.Id,
+            f.ExternalId,
             f.AirlineId,
             f.DepartureAirportId,
             f.DepartureTime,
@@ -52,6 +53,7 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
     {
         var flight = Core.Entities.Flight.Create(
             dto.AirlineId,
+            dto.ExternalId,
             dto.DepartureAirportId,
             dto.DepartureTime,
             dto.ArrivalAirportId,
@@ -91,7 +93,7 @@ public class FlightManager : BaseManager<AviaSalesDb, Core.Entities.Flight, long
         var flight = await _db.Flights.FirstOrDefaultAsync(f => f.Id == id);
         if (flight is null) return null;
 
-        flight.Update(dto.AirlineId, dto.DepartureTime, dto.ArrivalTime,  
+        flight.Update(dto.AirlineId,dto.ExternalId ,dto.DepartureTime, dto.ArrivalTime,  
         new FlightDetail
         {
             IsAvailable = dto.Details.IsAvailable,
