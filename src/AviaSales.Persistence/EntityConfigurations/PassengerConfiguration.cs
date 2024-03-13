@@ -15,12 +15,6 @@ public class PassengerConfiguration : IEntityTypeConfiguration<Passenger>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Passenger> builder)
     {
-        // Configures the one-to-one relationship with Flight.
-        builder.HasOne(p => p.Flight)
-            .WithOne()
-            .HasForeignKey<Passenger>(p => p.FlightId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         // Configures a unique index on the Email property.
         builder.HasIndex(p => p.Email)
             .IsUnique();

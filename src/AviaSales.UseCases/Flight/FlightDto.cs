@@ -1,5 +1,4 @@
 ﻿using AviaSales.Core.Enums;
-using AviaSales.External.Services.Models;
 
 namespace AviaSales.UseCases.Flight;
 

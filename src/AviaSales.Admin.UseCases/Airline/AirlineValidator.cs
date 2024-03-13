@@ -22,7 +22,7 @@ public class AirlineValidator : AbstractValidator<CreateAirlineDto>
         RuleFor(a => a.IcaoCode)
             .NotEmpty()
             .NotNull()
-            .MaximumLength(3)
+            .MaximumLength(4)
             .MinimumLength(3);
     }
 }

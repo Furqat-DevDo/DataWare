@@ -1,6 +1,4 @@
-﻿using AviaSales.Shared.Models;
-
-namespace AviaSales.Admin.UseCases.Country;
+﻿namespace AviaSales.Admin.UseCases.Country;
 
 /// <summary>
 /// Represents a Data Transfer Object (DTO) for presenting country information.

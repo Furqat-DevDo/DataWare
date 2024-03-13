@@ -16,16 +16,6 @@ public class Passenger : Entity<long>
     public long? UserId { get; private set; }
 
     /// <summary>
-    /// Gets or sets the ID of the flight associated with the passenger.
-    /// </summary>
-    public long FlightId { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the reference to the associated flight.
-    /// </summary>
-    public Flight? Flight { get; private set; }
-
-    /// <summary>
     /// Gets or sets the email of the passenger.
     /// </summary>
     public string Email { get; private set; }
@@ -49,17 +39,15 @@ public class Passenger : Entity<long>
     /// Creates a new passenger entity with the specified details.
     /// </summary>
     /// <param name="userId">The optional user ID associated with the passenger.</param>
-    /// <param name="flightId">The ID of the flight associated with the passenger.</param>
     /// <param name="email">The email of the passenger.</param>
     /// <param name="phone">The phone number of the passenger.</param>
     /// <param name="fullname">The full name of the passenger.</param>
     /// <returns>A new instance of the <see cref="Passenger"/> class.</returns>
-    public static Passenger Create(long? userId, long flightId, string email, string phone, string fullname)
+    public static Passenger Create(long? userId, string email, string phone, string fullname)
     {
         var passenger = new Passenger
         {
             UserId = userId,
-            FlightId = flightId,
             Email = email,
             Phone = phone,
             Fullname = fullname,
@@ -73,14 +61,12 @@ public class Passenger : Entity<long>
     /// Updates user information for a specific flight.
     /// </summary>
     /// <param name="userId">The unique identifier of the user (optional). Pass null if not applicable.</param>
-    /// <param name="flightId">The unique identifier of the flight.</param>
     /// <param name="phone">The updated phone number associated with the user.</param>
     /// <param name="email">The updated email address associated with the user.</param>
     /// <param name="fullname">The updated full name of the user.</param>
-    public void Update(long? userId, long flightId, string phone, string email, string fullname)
+    public void Update(long? userId,string phone, string email, string fullname)
     {
         UserId = userId;
-        FlightId = flightId;
         Phone = phone;
         Email = email;
         Fullname = fullname;

@@ -30,7 +30,6 @@ public class PassengerManager : BaseManager<AviaSalesDb, Core.Entities.Passenger
         p => new PassengerDto(
             p.Id,
             p.UserId,
-            p.FlightId,
             p.Email,
             p.Phone,
             p.Fullname,
@@ -44,7 +43,6 @@ public class PassengerManager : BaseManager<AviaSalesDb, Core.Entities.Passenger
     public async Task<PassengerDto> CreatePassenger(CreatePassengerDto dto)
     {
         var passenger = Core.Entities.Passenger.Create(dto.UserId,
-            dto.FlightId,
             dto.Email,
             dto.Phone,
             dto.Fullname);
@@ -66,7 +64,7 @@ public class PassengerManager : BaseManager<AviaSalesDb, Core.Entities.Passenger
         var passenger = await _db.Passengers.FirstOrDefaultAsync(p => p.Id == id);
         if (passenger is null) return null;
 
-        passenger.Update(dto.UserId, dto.FlightId, dto.Phone, dto.Email, dto.Fullname);
+        passenger.Update(dto.UserId, dto.Phone, dto.Email, dto.Fullname);
         await _db.SaveChangesAsync();
 
         return EntityToDto.Compile().Invoke(passenger);
