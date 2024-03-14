@@ -12,16 +12,16 @@ public class Flight : Entity<long>
 
     // Private parameterless constructor to prevent direct instantiation.
     private Flight() { }
-
-    /// <summary>
-    /// Gets or sets the ID of the airline associated with the flight.
-    /// </summary>
-    public long AirlineId { get; private set; }
     
     /// <summary>
     /// If flight from external source this field will have value.
     /// </summary>
     public string? ExternalId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ID of the airline associated with the flight.
+    /// </summary>
+    public long AirlineId { get; private set; }
 
     /// <summary>
     /// Gets or sets the reference to the associated airline entity.
