@@ -10,9 +10,9 @@
 
 ```json
 {
-	  "iataCode": "DL",
-		"icaoCode": "DAL",
-		"name": "Delta Air Lines"
+	"iataCode": "DL",
+	"icaoCode": "DAL",
+	"name": "Delta Air Lines"
 }
 ```
 
@@ -20,11 +20,11 @@ Response  :
 
 ```json
 {
-  "id": 1,
-  "createdAt": "2024-03-13T00:56:28.1355978Z",
-  "iataCode": "DL",
-  "icaoCode": "DAL",
-  "name": "Delta Air Lines"
+	"id": 1,
+	"createdAt": "2024-03-13T00:56:28.1355978Z",
+	"iataCode": "DL",
+	"icaoCode": "DAL",
+	"name": "Delta Air Lines"
 }
 ```
 
@@ -35,18 +35,18 @@ If you want more details enter per page param from query ‼️‼️‼️
 ```json
 [
   {
-    "id": 1,
-    "createdAt": "2024-03-13T00:56:28.135597Z",
-    "iataCode": "DL",
-    "icaoCode": "DAL",
-    "name": "Delta Air Lines"
+	"id": 1,
+	"createdAt": "2024-03-13T00:56:28.135597Z",
+	"iataCode": "DL",
+	"icaoCode": "DAL",
+	"name": "Delta Air Lines"
   },
   {
-    "id": 2,
-    "createdAt": "2024-03-13T01:04:10.961588Z",
-    "iataCode": "AA",
-    "icaoCode": "AAL",
-    "name": "American Airlines"
+	"id": 2,
+	"createdAt": "2024-03-13T01:04:10.961588Z",
+	"iataCode": "AA",
+	"icaoCode": "AAL",
+	"name": "American Airlines"
   }
 ]
 ```
@@ -63,13 +63,13 @@ If you want more details enter per page param from query ‼️‼️‼️
 
 ```json
 {
-		"name": "United States of America",
-		"cioc": "USA",
-		"area": 9372610,
-		"capital": "Washington, D.C.",
-		"cca2": "US",
-		"cca3": "USA",
-		"ccn3": "840"
+	"name": "United States of America",
+	"cioc": "USA",
+	"area": 9372610,
+	"capital": "Washington, D.C.",
+	"cca2": "US",
+	"cca3": "USA",
+	"ccn3": "840"
 }
 ```
 
@@ -77,14 +77,14 @@ Response:
 
 ```json
 {
-  "id": 1,
-  "name": "United States of America",
-  "cioc": "USA",
-  "area": 9372610,
-  "capital": "Washington, D.C.",
-  "cca2": "US",
-  "cca3": "USA",
-  "ccn3": "840"
+	"id": 1,
+	"name": "United States of America",
+	"cioc": "USA",
+	"area": 9372610,
+	"capital": "Washington, D.C.",
+	"cca2": "US",
+	"cca3": "USA",
+	"ccn3": "840"
 }
 ```
 
@@ -106,52 +106,52 @@ Response:
       - **`latitude` (number):** The latitude of the airport. In this case, it is approximately 40.6413.
       - **`elevation` (number):** The elevation of the airport above sea level. The value "13" represents 13 meters.
 
-      ```json
-      {
-                  "code": "JFK",
-                  "tz": "America/New_York",
-                  "timeZone": "Eastern Standard Time",
-                  "type": "international",
-                  "label": "John F. Kennedy International Airport",
-                  "city": "New York",
-                  "countryId": 1,
-                  "details": {
-                          "iataCode": "JFK",
-                          "icaoCode": "KJFK",
-                          "facilities": "Modern airport with multiple terminals and extensive amenities."
-                  },
-                  "location": {
-                      "longitude": -73.7781,
-                      "latitude": 40.6413,
-                      "elevation": 13
-                  }
-      }
-      ```
+```json
+{
+	  "code": "JFK",
+	  "tz": "America/New_York",
+	  "timeZone": "Eastern Standard Time",
+	  "type": "international",
+	  "label": "John F. Kennedy International Airport",
+	  "city": "New York",
+	  "countryId": 1,
+	  "details": {
+		  "iataCode": "JFK",
+		  "icaoCode": "KJFK",
+		  "facilities": "Modern airport with multiple terminals and extensive amenities."
+	  },
+	  "location": {
+	      "longitude": -73.7781,
+	      "latitude": 40.6413,
+	      "elevation": 13
+	  }
+}
+```
 
-    Response :
+Response :
 
-      ```json
-      {
-        "id": 1,
-        "code": "JFK",
-        "tz": "America/New_York",
-        "timeZone": "Eastern Standard Time",
-        "type": "international",
-        "label": "John F. Kennedy International Airport",
-        "city": "New York",
-        "countryId": 1,
-        "details": {
-          "iataCode": "JFK",
-          "icaoCode": "KJFK",
-          "facilities": "Modern airport with multiple terminals and extensive amenities."
-        },
-        "location": {
-          "longtitude": 0,
-          "latitude": 40.6413,
-          "elevation": 13
-        }
-      }
-      ```
+```json
+	{
+	"id": 1,
+	"code": "JFK",
+	"tz": "America/New_York",
+	"timeZone": "Eastern Standard Time",
+	"type": "international",
+	"label": "John F. Kennedy International Airport",
+	"city": "New York",
+	"countryId": 1,
+	"details": {
+	  "iataCode": "JFK",
+	  "icaoCode": "KJFK",
+	  "facilities": "Modern airport with multiple terminals and extensive amenities."
+	},
+		"location": {
+		  "longtitude": 0,
+		  "latitude": 40.6413,
+		  "elevation": 13
+		}
+	}
+```
 
     **Create Flight Request** :
 
