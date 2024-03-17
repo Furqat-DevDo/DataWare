@@ -131,7 +131,7 @@ Response:
 Response :
 
 ```json
-	{
+{
 	"id": 1,
 	"code": "JFK",
 	"tz": "America/New_York",
@@ -150,148 +150,148 @@ Response :
 		  "latitude": 40.6413,
 		  "elevation": 13
 		}
-	}
+}
 ```
 
-    **Create Flight Request** :
+**Create Flight Request** :
 
-      - **`airlineId` (integer):** The unique identifier of the airline operating the flight.
-      - **`externalId` (string):** An external identifier for the flight nullable.
-      - **`departureAirportId` (integer):** The unique identifier of the departure airport.
-      - **`departureTime` (string):** The UTC date and time of departure in ISO 8601 format.
-      - **`arrivalAirportId` (integer):** The unique identifier of the arrival airport.
-      - **`arrivalTime` (string):** The UTC date and time of arrival in ISO 8601 format.
-      - **`details` (object):** Additional details about the flight.
-          - **`passengerCount` (integer):** The number of passengers booked on the flight.
-          - **`isAvailable` (boolean):** Indicates whether the flight is currently available for booking.
-          - **`hasFreeBaggage` (boolean):** Indicates whether the flight offers free baggage allowance.
-          - **`transactionsCount` (integer):** The number of transactions associated with the flight.
-          - **`hasTransaction` (boolean):** Indicates whether there are any transactions associated with the flight.
-      - **`prices` (array of objects):** The pricing information for the flight, including different fare types.
-          - **`amount` (number):** The price of the flight fare.
-          - **`type` (string):** The type of fare, such as "main" or "discount".
+- **`airlineId` (integer):** The unique identifier of the airline operating the flight.
+- **`externalId` (string):** An external identifier for the flight nullable.
+- **`departureAirportId` (integer):** The unique identifier of the departure airport.
+- **`departureTime` (string):** The UTC date and time of departure in ISO 8601 format.
+- **`arrivalAirportId` (integer):** The unique identifier of the arrival airport.
+- **`arrivalTime` (string):** The UTC date and time of arrival in ISO 8601 format.
+- **`details` (object):** Additional details about the flight.
+  - **`passengerCount` (integer):** The number of passengers booked on the flight.
+  - **`isAvailable` (boolean):** Indicates whether the flight is currently available for booking.
+  - **`hasFreeBaggage` (boolean):** Indicates whether the flight offers free baggage allowance.
+  - **`transactionsCount` (integer):** The number of transactions associated with the flight.
+  - **`hasTransaction` (boolean):** Indicates whether there are any transactions associated with the flight.
+- **`prices` (array of objects):** The pricing information for the flight, including different fare types.
+  - **`amount` (number):** The price of the flight fare.
+  - **`type` (string):** The type of fare, such as "main" or "discount".
 
-      ```json
-      {
-                  "airlineId": 1234,
-                  "externalId": "ABC123",
-                  "departureAirportId": 456,
-                  "departureTime": "2024-03-13T08:00:00Z",
-                  "arrivalAirportId": 789,
-                  "arrivalTime": "2024-03-13T12:00:00Z",
-                  "details": {
-                      "passengerCount": 150,
-                      "isAvailable": true,
-                      "hasFreeBaggage": true,
-                      "transactionsCount": 50,
-                      "hasTransaction": true
-                  },
-                  "prices": [
-                          {
-                              "amount": 200,
-                              "type": "main"
-                          },
-                          {
-                              "amount": 50,
-                              "type": "discount"
-                          },
-                          {
-                              "amount": 15,
-                              "type": "VAT"
-                          }
-                  ]
-      }
-      ```
+```json
+{
+	  "airlineId": 1234,
+	  "externalId": "ABC123",
+	  "departureAirportId": 456,
+	  "departureTime": "2024-03-13T08:00:00Z",
+	  "arrivalAirportId": 789,
+	  "arrivalTime": "2024-03-13T12:00:00Z",
+	  "details": {
+	      "passengerCount": 150,
+	      "isAvailable": true,
+	      "hasFreeBaggage": true,
+	      "transactionsCount": 50,
+	      "hasTransaction": true
+	  },
+	  "prices": [
+		  {
+		      "amount": 200,
+		      "type": "main"
+		  },
+		  {
+		      "amount": 50,
+		      "type": "discount"
+		  },
+		  {
+		      "amount": 15,
+		      "type": "VAT"
+		  }
+	  ]
+}
+```
 
-    Response :
+Response :
 
-      ```json
-      {
-        "id": 1,
-        "externalId": null,
-        "airlineId": 1,
-        "departureAirportId": 3,
-        "departueTime": "2024-03-13T01:28:01.638Z",
-        "arrivalAirportId": 4,
-        "arrrivalTime": "2024-03-13T01:28:01.638Z",
-        "details": {
-          "passengerCount": 250,
-          "isAvailable": true,
-          "hasFreeBagage": true,
-          "transactionsCount": 0,
-          "hasTransaction": true
-        },
-        "prices": [
-          {
-            "amount": 450,
-            "type": "main"
-          },
-          {
-            "amount": 50,
-            "type": "discount"
-          },
-          {
-            "amount": 10,
-            "type": "vat"
-          }
-        ]
-      }
-      ```
+```json
+{
+	"id": 1,
+	"externalId": null,
+	"airlineId": 1,
+	"departureAirportId": 3,
+	"departueTime": "2024-03-13T01:28:01.638Z",
+	"arrivalAirportId": 4,
+	"arrrivalTime": "2024-03-13T01:28:01.638Z",
+	"details": {
+	  "passengerCount": 250,
+	  "isAvailable": true,
+	  "hasFreeBagage": true,
+	  "transactionsCount": 0,
+	  "hasTransaction": true
+	},
+	"prices": [
+	  {
+	    "amount": 450,
+	    "type": "main"
+	  },
+	  {
+	    "amount": 50,
+	    "type": "discount"
+	  },
+	  {
+	    "amount": 10,
+	    "type": "vat"
+	  }
+	]
+}
+```
 
-    **Create Passenger Request :**
+**Create Passenger Request :**
 
-      - **`userId` (integer, nullable):** The unique identifier of the user making the booking. If the user is not authenticated or registered, this field may be null.
-      - **`email` (string):** The email address of the user making the booking. This is used for communication and confirmation purposes.
-      - **`phone` (string):** The phone number of the user making the booking. This is often used for contact and notification purposes.
-      - **`fullname` (string):** The full name of the user making the booking. This is used for identification and ticketing purposes.
+- **`userId` (integer, nullable):** The unique identifier of the user making the booking. If the user is not authenticated or registered, this field may be null.
+- **`email` (string):** The email address of the user making the booking. This is used for communication and confirmation purposes.
+- **`phone` (string):** The phone number of the user making the booking. This is often used for contact and notification purposes.
+- **`fullname` (string):** The full name of the user making the booking. This is used for identification and ticketing purposes.
 
-      ```json
-      {
-          "userId": null,
-          "email": "[jon@gmail.com](mailto:jon@gmail.com)",
-          "phone": "998900996767",
-          "fullname": "Jon Dow"
-      }
-      ```
+```json
+{
+	  "userId": null,
+	  "email": "[jon@gmail.com](mailto:jon@gmail.com)",
+	  "phone": "998900996767",
+	  "fullname": "Jon Dow"
+}
+```
 
-    Response :
+Response :
 
-      ```json
-      {
-        "id": 1,
-        "userId": null,
-        "email": "jon@gmail.com",
-        "phone": "998900996767",
-        "fullname": "Jon Dow",
-        "createdAt": "2024-03-13T01:38:46.8027322Z"
-      }
-      ```
+```json
+{
+	"id": 1,
+	"userId": null,
+	"email": "jon@gmail.com",
+	"phone": "998900996767",
+	"fullname": "Jon Dow",
+	"createdAt": "2024-03-13T01:38:46.8027322Z"
+}
+```
 
-    **Create Booking Request** :
+**Create Booking Request** :
 
-      - **`flightId` (integer):** The unique identifier of the flight associated with the booking.
-      - **`passengerId` (integer):** The unique identifier of the passenger associated with the booking.
-      - **`totalPrice` (number):** The total price of the booking, usually in the currency specified by the system.
-      - **`status` (string):** The status of the booking, indicating whether it is pending, confirmed, cancelled, etc. Common statuses include "pending", "confirmed", "cancelled", and "inprogress".
+- **`flightId` (integer):** The unique identifier of the flight associated with the booking.
+- **`passengerId` (integer):** The unique identifier of the passenger associated with the booking.
+- **`totalPrice` (number):** The total price of the booking, usually in the currency specified by the system.
+- **`status` (string):** The status of the booking, indicating whether it is pending, confirmed, cancelled, etc. Common statuses include "pending", "confirmed", "cancelled", and "inprogress".
 
-      ```json
-      {
-          "flightId": 1,
-          "passengerId": 1,
-          "totalPrice": 1000,
-          "status": "pending"
-      }
-      ```
+```json
+{
+	  "flightId": 1,
+	  "passengerId": 1,
+	  "totalPrice": 1000,
+	  "status": "pending"
+}
+```
 
-    Response:
-  ```json
-  {
-    "id": 1,
-    "flightId": 1,
-    "passengerId": 1,
-    "totalPrice": 1000,
-    "status": "pending",
-    "createdAt": "2024-03-13T01:42:09.5538081Z",
-    "updatedAt": null
-  }
-  ```
+Response:
+```json
+{
+	"id": 1,
+	"flightId": 1,
+	"passengerId": 1,
+	"totalPrice": 1000,
+	"status": "pending",
+	"createdAt": "2024-03-13T01:42:09.5538081Z",
+	"updatedAt": null
+}
+```
