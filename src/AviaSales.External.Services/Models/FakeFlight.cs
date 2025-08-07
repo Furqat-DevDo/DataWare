@@ -7,6 +7,7 @@ public class FakeFilters
     public decimal? PriceFrom { get; set; }
     public decimal? PriceTo { get; set; }
 }
+
 public class FakeFlight
 {
     public long Id { get; set; }
